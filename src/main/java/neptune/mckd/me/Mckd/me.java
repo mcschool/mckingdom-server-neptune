@@ -1,0 +1,17 @@
+package neptune.mckd.me.Mckd;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public final class me extends JavaPlugin {
+
+    @Override
+    public void onEnable() {
+        // Plugin startup logic
+
+    }
+
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+    }
+}

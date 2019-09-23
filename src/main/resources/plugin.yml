@@ -1,0 +1,3 @@
+name: neptune
+version: ${project.version}
+main: neptune.mckd.me.Mckd.me
