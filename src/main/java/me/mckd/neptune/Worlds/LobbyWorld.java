@@ -1,6 +1,6 @@
-package neptune.mckd.me.Mckd.Worlds;
+package me.mckd.neptune.Worlds;
 
-import neptune.mckd.me.Mckd.Neptune;
+import me.mckd.neptune.Neptune;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,22 +8,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 public class LobbyWorld implements Listener {
-
-    Neptune plugin;
-
+    private Neptune plugin;
     public LobbyWorld(Neptune plugin) {
         this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
-
-    public void onPlayerChangeWorld(PlayerChangedWorldEvent event){
-       Player player=event.getPlayer();
-        if (player.getWorld().getName().equals("lobby")){
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent e) {
+        Player player = e.getPlayer();
+        player.sendMessage("ロビーだよ");
+        if (player.getWorld().getName().equals("lobby")) {
             player.setGameMode(GameMode.ADVENTURE);
         }
     }
 }
-
-
