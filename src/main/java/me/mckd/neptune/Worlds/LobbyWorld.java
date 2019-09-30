@@ -26,6 +26,12 @@ public class LobbyWorld implements Listener {
             player.setGameMode(GameMode.ADVENTURE);
             player.getInventory().clear();
 
+            ItemStack arrow = new ItemStack(Material.ARROW);
+            ItemMeta arrowMeta = arrow.getItemMeta();
+            arrowMeta.setDisplayName("ArrowWarp");
+            arrow.setItemMeta(arrowMeta);
+            player.getInventory().setItem(0, arrow);
+
             ItemStack bed = new ItemStack(Material.BED);
             ItemMeta itemMeta = bed.getItemMeta();
             itemMeta.setDisplayName("ホームに戻る");
