@@ -1,5 +1,6 @@
 package me.mckd.neptune;
 
+import me.mckd.neptune.Worlds.ArrowWarp;
 import me.mckd.neptune.Worlds.LobbyWorld;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,6 +15,7 @@ public final class Neptune extends JavaPlugin {
         System.out.println("@@@@@@@@@@@@@@");
         // Plugin startup logic
         new LobbyWorld(this);
+        new ArrowWarp(this);
     }
 
     @Override
