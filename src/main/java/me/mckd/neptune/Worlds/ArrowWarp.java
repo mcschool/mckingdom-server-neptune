@@ -26,9 +26,14 @@ public class ArrowWarp implements Listener {
         if (!e.getPlayer().getWorld().getName().equals("arrow")) return;
         Player player = e.getPlayer();
 
+        // インベントリクリア
+        player.getInventory().clear();
+
+        // arrowを渡す
         ItemStack arrow = new ItemStack(Material.ARROW, 64);
         player.getInventory().addItem(arrow);
 
+        // bowを渡す
         ItemStack bow = new ItemStack(Material.BOW);
         player.getInventory().addItem(bow);
     }
