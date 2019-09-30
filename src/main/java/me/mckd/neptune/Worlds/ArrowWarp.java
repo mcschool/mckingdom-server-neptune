@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ArrowWarp implements Listener {
@@ -18,6 +19,7 @@ public class ArrowWarp implements Listener {
     String worldName = "arrow";
 
     public ArrowWarp(Neptune plugin) {
+        this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -25,6 +27,8 @@ public class ArrowWarp implements Listener {
     public void onPLayerChangeWorld(PlayerChangedWorldEvent e) {
         if (!e.getPlayer().getWorld().getName().equals("arrow")) return;
         Player player = e.getPlayer();
+
+        player.sendTitle("ArrowWarp", "アローワープ", 20, 40, 20);
 
         // インベントリクリア
         player.getInventory().clear();
@@ -46,6 +50,18 @@ public class ArrowWarp implements Listener {
             Arrow arrow = (Arrow)e.getEntity();
             Location location = arrow.getLocation();
             Player player = (Player)e.getEntity().getShooter();
+            player.teleport(location);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        if (!e.getPlayer().getWorld().getName().equals("arrow")) return;
+        Player player = e.getPlayer();
+        Double y = player.getLocation().getY();
+        if (y < 180) {
+            Location location = player.getWorld().getSpawnLocation();
+            player.sendMessage("失敗...");
             player.teleport(location);
         }
     }
