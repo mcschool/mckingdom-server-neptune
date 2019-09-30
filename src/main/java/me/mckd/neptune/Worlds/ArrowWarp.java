@@ -9,9 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class ArrowWarp implements Listener {
 
@@ -40,6 +42,13 @@ public class ArrowWarp implements Listener {
         // bowを渡す
         ItemStack bow = new ItemStack(Material.BOW);
         player.getInventory().addItem(bow);
+
+        ItemStack bed = new ItemStack(Material.BED);
+        ItemMeta itemMeta = bed.getItemMeta();
+        itemMeta.setDisplayName("ロビーに戻る");
+        bed.setItemMeta(itemMeta);
+        player.getInventory().setItem(35, bed);
+
     }
 
     @EventHandler
@@ -65,4 +74,14 @@ public class ArrowWarp implements Listener {
             player.teleport(location);
         }
     }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        Player player = (Player) e.getWhoClicked();
+        if (!player.getWorld().getName().equals("arrow")) return;
+        if (e.getCurrentItem().getType() == Material.BED) {
+            player.performCommand("mvtp lobby");
+        }
+    }
+
 }

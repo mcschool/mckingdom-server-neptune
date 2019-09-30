@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
@@ -30,13 +31,13 @@ public class LobbyWorld implements Listener {
             ItemMeta arrowMeta = arrow.getItemMeta();
             arrowMeta.setDisplayName("ArrowWarp");
             arrow.setItemMeta(arrowMeta);
-            player.getInventory().setItem(0, arrow);
+            player.getInventory().setItem(9, arrow);
 
             ItemStack bed = new ItemStack(Material.BED);
             ItemMeta itemMeta = bed.getItemMeta();
             itemMeta.setDisplayName("ホームに戻る");
             bed.setItemMeta(itemMeta);
-            player.getInventory().setItem(8, bed);
+            player.getInventory().setItem(34, bed);
         }
     }
 
@@ -44,5 +45,14 @@ public class LobbyWorld implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent e){
         Player player=e.getPlayer();
         player.performCommand("mvtp lobby");
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        Player player = (Player) e.getWhoClicked();
+        if (!player.getWorld().getName().equals("lobby")) return;
+        if (e.getCurrentItem().getType() == Material.ARROW) {
+            player.performCommand("mvtp arrow");
+        }
     }
 }
