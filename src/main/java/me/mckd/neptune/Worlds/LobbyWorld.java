@@ -2,11 +2,14 @@ package me.mckd.neptune.Worlds;
 
 import me.mckd.neptune.Neptune;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class LobbyWorld implements Listener {
     private Neptune plugin;
@@ -21,6 +24,13 @@ public class LobbyWorld implements Listener {
         player.sendMessage("ロビーだよ");
         if (player.getWorld().getName().equals("lobby")) {
             player.setGameMode(GameMode.ADVENTURE);
+            player.getInventory().clear();
+
+            ItemStack bed = new ItemStack(Material.BED);
+            ItemMeta itemMeta = bed.getItemMeta();
+            itemMeta.setDisplayName("ホームに戻る");
+            bed.setItemMeta(itemMeta);
+            player.getInventory().setItem(8, bed);
         }
     }
 
