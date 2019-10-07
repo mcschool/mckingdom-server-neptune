@@ -59,7 +59,7 @@ public class LobbyWorld implements Listener {
 
     @EventHandler
     public void onBlockBreak (BlockBreakEvent e) {
-        if (!e.getPlayer().getWorld().getName().equals("build")) {
+        if (!e.getPlayer().getWorld().getName().equals("lobby")) {
             return;
         }
         Player player = e.getPlayer();
