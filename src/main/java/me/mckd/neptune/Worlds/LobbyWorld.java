@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -55,4 +56,16 @@ public class LobbyWorld implements Listener {
             player.performCommand("mvtp arrow");
         }
     }
+
+    @EventHandler
+    public void onBlockBreak (BlockBreakEvent e) {
+        if (!e.getPlayer().getWorld().getName().equals("build")) {
+            return;
+        }
+        Player player = e.getPlayer();
+        if (player.getGameMode()==GameMode.SURVIVAL){
+            e.setCancelled(true);
+        }
+    }
+
 }
