@@ -78,6 +78,7 @@ public class LobbyWorld implements Listener {
         Player player = e.getPlayer();
         if(e.getNewGameMode() == GameMode.SPECTATOR) {
             player. sendMessage ("キンシ！");
+            e.setCancelled(true);
         }
     }
 }
