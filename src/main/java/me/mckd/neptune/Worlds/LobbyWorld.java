@@ -9,7 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -68,4 +70,14 @@ public class LobbyWorld implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerGameModeChange(PlayerGameModeChangeEvent e) {
+        if (!e.getPlayer().getWorld().getName().equals("lobby")) {
+            return;
+        }
+        Player player = e.getPlayer();
+        if(e.getNewGameMode() == GameMode.SPECTATOR) {
+            player. sendMessage ("キンシ！");
+        }
+    }
 }
