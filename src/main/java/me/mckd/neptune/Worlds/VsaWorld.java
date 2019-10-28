@@ -66,7 +66,7 @@ public class VsaWorld implements Listener {
         player.teleport(this.lobbyLocation);
     }
 
-    ＠EventHandler
+    @EventHandler
     public void BlockPlaceEvent(BlockPlaceEvent event) {
         if (event.getPlayer().getWorld().getName().equals(this.worldName)) {
             if (event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
@@ -74,7 +74,7 @@ public class VsaWorld implements Listener {
             }
         }
     }
-            }
+
     @EventHandler
     public void onFoodLevelChangeEvent(FoodLevelChangeEvent event) {
         String worldname = event.getEntity().getName();
@@ -85,11 +85,4 @@ public class VsaWorld implements Listener {
     }
 
 
-
-
-
-
-}
-
-    }
 }
