@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -63,5 +64,32 @@ public class VsaWorld implements Listener {
     public void done(Player player) {
         player.sendTitle("CLEAR!!", "おめでとう！", 20, 20, 20);
         player.teleport(this.lobbyLocation);
+    }
+
+    ＠EventHandler
+    public void BlockPlaceEvent(BlockPlaceEvent event) {
+        if (event.getPlayer().getWorld().getName().equals(this.worldName)) {
+            if (event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
+                event.setCancelled(true);
+            }
+        }
+    }
+            }
+    @EventHandler
+    public void onFoodLevelChangeEvent(FoodLevelChangeEvent event) {
+        String worldname = event.getEntity().getName();
+        if (worldName.equals(this.worldName)) {
+            event.setCancelled(true);
+            return;
+        }
+    }
+
+
+
+
+
+
+}
+
     }
 }
