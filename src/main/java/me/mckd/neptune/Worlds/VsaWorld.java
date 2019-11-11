@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -84,5 +85,13 @@ public class VsaWorld implements Listener {
         }
     }
 
+    // 爆発
+    @EventHandler
+    public void onExplosionPrimeEvent(ExplosionPrimeEvent e) {
+        if (worldName.equals(this.worldName)) {
+            return;
+        }
+        e.setCancelled(true);
+    }
 
 }
