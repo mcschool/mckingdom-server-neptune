@@ -4,13 +4,18 @@ import me.mckd.neptune.Neptune;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -84,4 +89,21 @@ public class ArrowWarp implements Listener {
         }
     }
 
+    @EventHandler
+    public void signClick(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        if (!p.getWorld().getName().equals("pve")) {
+            return;
+        }
+        Block b = e.getClickedBlock();
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && b.getType() == Material.SIGN_POST) {
+            Sign sign;
+            sign = (sign) b.getState();
+            String line = sign.getLine(1);
+            if (line.equals("stage 1")) {
+                Location location = new Location(p.getWorld(), 0, 10, 0);
+                p.teleport();
+            }
+        }
+    }
 }
