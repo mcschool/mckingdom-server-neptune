@@ -25,7 +25,7 @@ jobs:
             ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
       - run:
           command: |
-            ssh -p 22 $USER_NAME@$HOST_NAME "whoami && source ~/.bash_profile && sh /home/ys/mckingdom-server-neptune/deploy.sh"
+            ssh -p 22 $USER_NAME@$HOST_NAME "whoami && source ~/.bash_profile && cd /home/ys/mckingdom-server-neptune && sh deploy.sh"
 
 workflows:
   version: 2
