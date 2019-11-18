@@ -4,12 +4,14 @@ import me.mckd.neptune.Neptune;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class BeginersWorld implements Listener {
 
@@ -43,7 +45,14 @@ public class BeginersWorld implements Listener {
         }
         Block b = e.getClickedBlock();
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)&&b.getType()== Material.SIGN_POST){
-            p.sendMessage("こんちわ");
+            //p.sendMessage("こんちわ");
+
+            Sign sign  = (Sign) b.getState();
+            String line = sign.getLine(1);
+            if ( line.equals("sword") ){
+                ItemStack item = new ItemStack(Material.WOOD_SWORD);
+                p.getInventory().addItem(item);
+            }
         }
     }
 }
