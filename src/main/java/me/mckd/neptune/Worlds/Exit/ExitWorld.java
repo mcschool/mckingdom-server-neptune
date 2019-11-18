@@ -17,6 +17,7 @@ public class ExitWorld implements Listener {
 
     public ExitWorld(Neptune plugin) {
         this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
