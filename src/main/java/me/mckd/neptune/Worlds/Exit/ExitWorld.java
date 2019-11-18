@@ -38,6 +38,7 @@ public class ExitWorld implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e)  {
         Player player = e.getPlayer();
+        player.sendMessage("aaaaa");
         if(!player.getWorld().getName().equals("exit")) {
             return;
         }

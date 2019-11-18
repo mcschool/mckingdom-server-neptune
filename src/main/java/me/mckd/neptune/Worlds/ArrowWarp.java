@@ -92,17 +92,17 @@ public class ArrowWarp implements Listener {
     @EventHandler
     public void signClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        if (!p.getWorld().getName().equals("pve")) {
+        if (!p.getWorld().getName().equals("arrow")) {
             return;
         }
         Block b = e.getClickedBlock();
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && b.getType() == Material.SIGN_POST) {
             Sign sign;
-            sign = (sign) b.getState();
+            sign = (Sign) b.getState();
             String line = sign.getLine(1);
             if (line.equals("stage 1")) {
-                Location location = new Location(p.getWorld(), 0, 10, 0);
-                p.teleport();
+                Location location = new Location(p.getWorld(), -1601, 197, 721);
+                p.teleport(location);
             }
         }
     }
