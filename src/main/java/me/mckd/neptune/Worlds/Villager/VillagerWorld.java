@@ -37,8 +37,9 @@ public class VillagerWorld implements Listener {
         new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 80);
 
         World world =player.getWorld();
+        player.sendMessage(String.valueOf(world.getPlayers().size()));
         if (world.getPlayers().size() == 1) {
-            new JoinCheckScheduler(this.plugin, world);
+            new JoinCheckScheduler(this.plugin, world).runTaskTimer(this.plugin, 0, 20);
         }
     }
 

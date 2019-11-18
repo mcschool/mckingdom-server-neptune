@@ -35,7 +35,7 @@ public class JoinCheckScheduler extends BukkitRunnable {
             if (playerCount<1) {
                 for (int i = 0; i < players.size(); i++) {
                     Location location;
-                    Player p = players.get(0);
+                    Player p = players.get(i);
                     location = new Location(this.world, -822, 201, -263);
                     this.setHelmet(p, Color.RED);
                     p.teleport(location);
@@ -48,7 +48,10 @@ public class JoinCheckScheduler extends BukkitRunnable {
             }
 
         }
-        this.cancel();
+        if (count < 1) {
+            this.cancel();
+        }
+        this.count = this.count - 1;
     }
 
     public void setHelmet(Player player, Color color) {
