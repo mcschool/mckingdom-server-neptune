@@ -55,7 +55,7 @@ public class ArrowWarp implements Listener {
     public void arrowShot(ProjectileHitEvent e) {
         if (!e.getEntity().getWorld().getName().equals("arrow")) return;
         if (e.getEntity() instanceof Arrow) {
-            Arrow arrow = (Arrow)e.getEntity();
+            Arrow arrow = (Arrow) e.getEntity();
             Location location = arrow.getLocation();
             Double y = location.getY();
             if (y > 170) {
@@ -105,5 +105,45 @@ public class ArrowWarp implements Listener {
     }
 
     // 11.26
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent e) {
+        if (!e.getEntity().getWorld().equals("arrow")) {
+            return;
+        }
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
+        if (e.getCause() != null && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            e.setCancelled(true);
+        }
+    }
+
+    public void stageClear(Player player) {
+        player.sendTitle("クリア!", "おめでとう!", 20, 20, 20);
+        player.setGameMode(GameMode.SPECTATOR);
+        new ArrowClearScheduler(player).runTaskTimer(this.plugin, 0, 20);
+
+    }
+
+    @EventHandler
+    public void onPlayerIntaract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().getName().equals("arrow")) {
+            return;
+        }
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
+                if(player.getGameMode()!= GameMode.SPECTATOR) {
+                    this.stageClear(player);
+                    e.setCancelled(true);
+                }
+            }
+        }
+        if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            if(e.getMaterial() == Material.BED) {
+                player.performCommand("mvtp lobby");
+            }
+        }
+    }
 
 }
