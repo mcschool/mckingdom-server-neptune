@@ -126,12 +126,13 @@ public class ArrowWarp implements Listener {
     }
 
     @EventHandler
-    public void onPlayerIntaract(PlayerInteractEvent e) {
+    public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         if (!player.getWorld().getName().equals("arrow")) {
             return;
         }
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            player.sendMessage("test1");
             if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
                 if(player.getGameMode()!= GameMode.SPECTATOR) {
                     this.stageClear(player);
