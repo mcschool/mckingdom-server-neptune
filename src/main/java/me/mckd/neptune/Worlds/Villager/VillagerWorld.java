@@ -85,9 +85,9 @@ public class VillagerWorld implements Listener {
         Entity entity = e.getRightClicked();
         player.sendMessage(entity.getType().toString());
         if (entity.getType().toString().equals("VILLAGER")) {
-            e.setCancelled(true);
             player.sendMessage("a");
             this.openGui(player);
+            e.setCancelled(true);
         }
     }
 
