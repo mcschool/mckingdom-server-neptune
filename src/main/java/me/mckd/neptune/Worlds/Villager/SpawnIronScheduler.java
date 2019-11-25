@@ -19,13 +19,6 @@ public class SpawnIronScheduler extends BukkitRunnable {
 
     @Override
     public void run(){
-        // 鉄インゴットをスポーンさせる
-        Location location=new Location(this.world,-822,201,-355);
-        this.world.dropItemNaturally(location,new ItemStack(Material.IRON_INGOT) );
-
-        if (this.count>500){
-            this.cancel();
-        }
     }
 
 }
