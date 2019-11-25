@@ -42,14 +42,14 @@ public class VillagerWorld implements Listener {
         // スケジューラーを開始する
         // new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 80);
 
-        World world =player.getWorld();
+        World world = player.getWorld();
         player.getInventory().clear();
         player.sendMessage(String.valueOf(world.getPlayers().size()));
         // n人以上集まったらゲームスタート
         if (world.getPlayers().size() >= 2) {
             // new JoinCheckScheduler(this.plugin, world).runTaskTimer(this.plugin, 0, 20);
             // this.start();
-            new SpawnDiamondScheduler(this.plugin,player.getWorld()).runTaskTimer(this.plugin, 0 , 100);
+            new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 100);
             new SpawnIronScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 20);
         }
     }
@@ -69,7 +69,7 @@ public class VillagerWorld implements Listener {
     }
 
     @EventHandler
-    public void onEntityExplodeEvent(EntityExplodeEvent e){
+    public void onEntityExplodeEvent(EntityExplodeEvent e) {
         World world = e.getEntity().getWorld();
         if (!world.getName().equals("villager")) {
             return;
@@ -78,4 +78,39 @@ public class VillagerWorld implements Listener {
     }
 
     // 11.25
+    @EventHandler
+    public void onInventoryOpen(InventoryOpenEvent e) {
+        Player player = (Player) e.getPlayer();
+        if (!player.getWorld().getName().equals("villager")) {
+            return;
+        }
+        if (e.getInventory().getType() == InventoryType.MERCHANT) {
+            e.setCancelled(true);
+            this.openGui(player);
+        }
+    }
+
+    public void openGui(Player player) {
+        Inventory inv;
+        inv = Bukkit.createInventory(null, 45, "SHOP");
+        inv.clear();
+
+        inv.setItem(0, this.setItemForGui(Material.IRON_AXE, "10", 1));
+        player.openInventory(inv);
+    }
+
+
+    public ItemStack setItemForGui(Material material, String name, int count) {
+        ItemStack itemStack = new ItemStack(material, count);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(name);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
 }
+
+
+
+
+
+
