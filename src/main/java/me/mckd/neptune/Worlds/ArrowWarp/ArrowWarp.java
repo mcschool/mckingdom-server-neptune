@@ -127,6 +127,7 @@ public class ArrowWarp implements Listener {
     public void stageClear(Player player) {
         player.sendTitle("クリア！", "おめでとう！", 20, 20,20 );
         player.setGameMode(GameMode.SPECTATOR);
+        new ArrowClearScheduler(player).runTaskTimer(this.plugin, 0, 20);
     }
 
 
