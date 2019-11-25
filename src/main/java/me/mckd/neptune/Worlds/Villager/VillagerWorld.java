@@ -38,14 +38,16 @@ public class VillagerWorld implements Listener {
         }
         // スケジューラーを開始する
         // new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 80);
-        new SpawnDiamondScheduler(this.plugin,player.getWorld()).runTaskTimer(this.plugin, 0 , 100);
 
         World world =player.getWorld();
+        player.getInventory().clear();
         player.sendMessage(String.valueOf(world.getPlayers().size()));
         // n人以上集まったらゲームスタート
         if (world.getPlayers().size() >= 2) {
             // new JoinCheckScheduler(this.plugin, world).runTaskTimer(this.plugin, 0, 20);
             // this.start();
+            new SpawnDiamondScheduler(this.plugin,player.getWorld()).runTaskTimer(this.plugin, 0 , 100);
+            new SpawnIronScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 100);
         }
     }
 
