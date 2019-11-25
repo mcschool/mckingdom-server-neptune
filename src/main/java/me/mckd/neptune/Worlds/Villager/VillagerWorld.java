@@ -78,6 +78,7 @@ public class VillagerWorld implements Listener {
     }
 
     // 11.25
+    /*
     @EventHandler
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent e) {
         Player player = e.getPlayer();
@@ -93,6 +94,7 @@ public class VillagerWorld implements Listener {
             this.openGui(player);
         }
     }
+     */
 
     @EventHandler
     public void onInventoryOpen(InventoryOpenEvent e) {
