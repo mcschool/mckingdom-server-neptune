@@ -110,7 +110,7 @@ public class ArrowWarp implements Listener {
     // 落下ダメージをOffにする
     @EventHandler
     public void onEntityDamage(EntityDamageEvent e) {
-        if (e.getEntity().getWorld().getName().equals("arrow")) {
+        if (!e.getEntity().getWorld().getName().equals("arrow")) {
             return;
         }
         // ダメージを受けたエンティティがプレーヤーじゃなかったらreturn
