@@ -119,7 +119,7 @@ public class ExitWorld implements Listener {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
 
-            Location location = new Location(e.getEntity().getWorld(),-997,27,-1080);
+            Location location = new Location(e.getEntity().getWorld(),-997,29,-1080);
 
             player.teleport(location);
         }
