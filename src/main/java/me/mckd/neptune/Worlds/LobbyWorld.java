@@ -49,6 +49,20 @@ public class LobbyWorld implements Listener {
             boots.setItemMeta(bootsMeta);
             player.getInventory().setItem(1,boots);
 
+            // Exitに行くためのグローストーン渡す
+            ItemStack glow = new ItemStack(Material.GLOWSTONE);
+            ItemMeta glowMeta = glow.getItemMeta();
+            glowMeta.setDisplayName("Exitに行く");
+            glow.setItemMeta(glowMeta);
+            player.getInventory().setItem(2, glow);
+
+            // VillagerWarsに行くためのエメラルド渡す
+            ItemStack emerald = new ItemStack(Material.EMERALD);
+            ItemMeta emeraldMeta = emerald.getItemMeta();
+            emeraldMeta.setDisplayName("VillagerWarsに行く");
+            emerald.setItemMeta(emeraldMeta);
+            player.getInventory().setItem(3, emerald);
+
             ItemStack bed = new ItemStack(Material.BED);
             ItemMeta itemMeta = bed.getItemMeta();
             itemMeta.setDisplayName("ホームに戻る");
