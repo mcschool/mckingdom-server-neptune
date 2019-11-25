@@ -107,7 +107,7 @@ public class ArrowWarp implements Listener {
     // 11.26
     @EventHandler
     public void onEntityDamage(EntityDamageEvent e) {
-        if (!e.getEntity().getWorld().equals("arrow")) {
+        if (!e.getEntity().getWorld().getName().equals("arrow")) {
             return;
         }
         if (!(e.getEntity() instanceof Player)) {
@@ -132,7 +132,6 @@ public class ArrowWarp implements Listener {
             return;
         }
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            player.sendMessage("test1");
             if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
                 if(player.getGameMode()!= GameMode.SPECTATOR) {
                     this.stageClear(player);
