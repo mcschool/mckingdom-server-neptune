@@ -48,8 +48,7 @@ public class ArrowWarp implements Listener {
         ItemMeta itemMeta = bed.getItemMeta();
         itemMeta.setDisplayName("ロビーに戻る");
         bed.setItemMeta(itemMeta);
-        player.getInventory().setItem(35, bed);
-
+        player.getInventory().setItem(8, bed);
     }
 
     @EventHandler
@@ -140,11 +139,19 @@ public class ArrowWarp implements Listener {
         }
         // ブロックを右クリック
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            // エンダーチェストを右クリック
             if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
+                // スペクテイターじゃなかった場合
                 if (player.getGameMode() != GameMode.SPECTATOR) {
                     this.stageClear(player);
+                    e.setCancelled(true); // インベントリを開かないようにする
                 }
-                e.setCancelled(true); // インベントリを開かないようにする
+            }
+        }
+        // 空中を右クリックした時
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            if (e.getMaterial() == Material.BED) {
+                player.performCommand("mvtp lobby");
             }
         }
     }
