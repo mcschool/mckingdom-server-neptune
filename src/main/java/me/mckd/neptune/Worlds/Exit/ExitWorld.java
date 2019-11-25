@@ -72,7 +72,7 @@ public class ExitWorld implements Listener {
 
         // レッドストーンに置き換わった原木を元に戻す
         world.getBlockAt(new Location(world, -1024, 4, -1118)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world, -1002, 4, -1133)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1004, 4, -1135)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world, -1000, 4, -1086)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world, -1030, 5, -1090)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world, -1052, 4, -1086)).setType(Material.LOG_2);
