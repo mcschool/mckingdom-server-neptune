@@ -30,7 +30,9 @@ public class LobbyWorld implements Listener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent e) {
         Player player = e.getPlayer();
+        player.sendMessage("a");
         if (player.getWorld().getName().equals("lobby")) {
+            player.sendMessage("b");
             player.setGameMode(GameMode.ADVENTURE);
             player.getInventory().clear();
 
