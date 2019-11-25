@@ -40,20 +40,20 @@ public class LobbyWorld implements Listener {
             ItemMeta arrowMeta = arrow.getItemMeta();
             arrowMeta.setDisplayName("ArrowWarp");
             arrow.setItemMeta(arrowMeta);
-            player.getInventory().setItem(9, arrow);
+            player.getInventory().setItem(0, arrow);
 
             // VSAにいくためのブーツ渡す
             ItemStack boots = new  ItemStack(Material.DIAMOND_BOOTS);
             ItemMeta bootsMeta = boots.getItemMeta();
             bootsMeta.setDisplayName("VSAに行く");
             boots.setItemMeta(bootsMeta);
-            player.getInventory().setItem(10,boots);
+            player.getInventory().setItem(1,boots);
 
             ItemStack bed = new ItemStack(Material.BED);
             ItemMeta itemMeta = bed.getItemMeta();
             itemMeta.setDisplayName("ホームに戻る");
             bed.setItemMeta(itemMeta);
-            player.getInventory().setItem(34, bed);
+            player.getInventory().setItem(8, bed);
         }
     }
 
