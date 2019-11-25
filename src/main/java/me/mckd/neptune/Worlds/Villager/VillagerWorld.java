@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -84,7 +85,7 @@ public class VillagerWorld implements Listener {
 
         Entity entity = e.getRightClicked();
         player.sendMessage(entity.getType().toString());
-        if (entity.getType().toString().equals("VILLAGER")) {
+        if (entity instanceof Villager) {
             player.sendMessage("a");
             e.setCancelled(true);
             this.openGui(player);
