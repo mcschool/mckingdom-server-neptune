@@ -54,7 +54,8 @@ public class ExitWorld implements Listener {
         }
         if (e.getBlock().getType() == Material.LOG_2) {
             Block block = e.getBlock();
-            block.setType(Material.REDSTONE_BLOCK);
+            block.setType(Material.GOLD_BLOCK);
+            player.sendMessage(e.getBlock().toString());
             this.count--;
             List<Player> players = e.getBlock().getWorld().getPlayers();
             for (Player p: players) {
