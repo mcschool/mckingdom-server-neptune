@@ -1,9 +1,7 @@
-package me.mckd.neptune.Worlds;
+package me.mckd.neptune.Worlds.ArrowWarp;
 
 import me.mckd.neptune.Neptune;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Arrow;
@@ -13,10 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -60,11 +55,13 @@ public class ArrowWarp implements Listener {
     public void arrowShot(ProjectileHitEvent e) {
         if (!e.getEntity().getWorld().getName().equals("arrow")) return;
         if (e.getEntity() instanceof Arrow) {
-            World world = e.getEntity().getWorld();
             Arrow arrow = (Arrow)e.getEntity();
             Location location = arrow.getLocation();
-            Player player = (Player)e.getEntity().getShooter();
-            player.teleport(location);
+            Double y = location.getY();
+            if (y > 170) {
+                Player player = (Player) e.getEntity().getShooter();
+                player.teleport(location);
+            }
         }
     }
 
@@ -103,6 +100,44 @@ public class ArrowWarp implements Listener {
             if (line.equals("stage 1")) {
                 Location location = new Location(p.getWorld(), -1601, 197, 721);
                 p.teleport(location);
+            }
+        }
+    }
+
+    // 11.26
+
+    // 落下ダメージをOffにする
+    @EventHandler
+    public void onPlayerVelocity(PlayerVelocityEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().getName().equals("arrow")) {
+            return;
+        }
+        e.setCancelled(true);
+    }
+
+    // stage clear
+    // 依存: onPlayerInteract
+    public void stageClear(Player player) {
+        player.sendTitle("クリア！", "おめでとう！", 20, 20,20 );
+        player.setGameMode(GameMode.SPECTATOR);
+    }
+
+
+    // ブロック or 空中をクリック・右クリックした時の処理
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (player.getWorld().getName().equals("arrow")) {
+            return;
+        }
+        // ブロックを右クリック
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
+                if (player.getGameMode() != GameMode.SPECTATOR) {
+                    this.stageClear(player);
+                }
+                e.setCancelled(true); // インベントリを開かないようにする
             }
         }
     }
