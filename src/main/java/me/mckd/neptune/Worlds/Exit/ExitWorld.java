@@ -18,6 +18,7 @@ public class ExitWorld implements Listener {
 
     Neptune plugin;
     String worldName = "exit";
+    int count = 5;
 
     public ExitWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -39,6 +40,7 @@ public class ExitWorld implements Listener {
         for (Player p:players) {
             p.sendMessage("今"+playerNum + "人になった？");
         }
+        // n人以上集まったらゲームを開始する
         if (playerCount >= 1) {
             this.start();
         }
@@ -47,22 +49,36 @@ public class ExitWorld implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e)  {
         Player player = e.getPlayer();
-        player.sendMessage("aaaaa");
         if(!player.getWorld().getName().equals("exit")) {
             return;
         }
         if (e.getBlock().getType() == Material.LOG_2) {
             Block block = e.getBlock();
-            Location location = block.getLocation();
-            location.setY(location.getY() + 1);
-            location.getBlock();
-            player.sendMessage(location.getBlock().getType().toString());
+            block.setType(Material.REDSTONE_BLOCK);
+            this.count--;
+            List<Player> players = e.getBlock().getWorld().getPlayers();
+            for (Player p: players) {
+                p.sendTitle("あと" + String.valueOf(this.count) + "個", "", 20, 20, 20);
+            }
         }
     }
 
+    // 11.25
+    // ゲームを開始するプログラム
     private void start() {
         World world = Bukkit.getWorld("exit");
         List<Player> players = world.getPlayers();
+
+        // レッドストーンに置き換わった原木を元に戻す
+        world.getBlockAt(new Location(world, -1024, 4, -1118)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1003, 4, -1134)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1000, 4, -1086)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1030, 5, -1090)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1052, 4, -1086)).setType(Material.LOG_2);
+
+        // レッドストーンランプカウントリセット
+        this.count = 5;
+
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == 0) {
