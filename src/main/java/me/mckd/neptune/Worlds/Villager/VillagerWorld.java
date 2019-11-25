@@ -78,40 +78,28 @@ public class VillagerWorld implements Listener {
     }
 
     // 11.25
-    /*
-    @EventHandler
-    public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent e) {
-        Player player = e.getPlayer();
-        if (!player.getWorld().getName().equals("villager")) {
-            return;
-        }
-
-        Entity entity = e.getRightClicked();
-        player.sendMessage(entity.getType().toString());
-        if (entity instanceof Villager) {
-            player.sendMessage("a");
-            e.setCancelled(true);
-            this.openGui(player);
-        }
-    }
-     */
-
+    // インベントリを開いた時に動くイベント
     @EventHandler
     public void onInventoryOpen(InventoryOpenEvent e) {
+        // インベントリを開いたプレーヤーを取得
         Player player = (Player) e.getPlayer();
         if (!player.getWorld().getName().equals("villager")) {
             return;
         }
         if (e.getInventory().getType() == InventoryType.MERCHANT) {
+            // もしインベントリの種類がMERCHANT(売り手)だった場合交換のGUIをキャンセル
             e.setCancelled(true);
+            // プログラムで作ったGUIを開く GOTO: public void openGui
             this.openGui(player);
         }
     }
 
     public void openGui(Player player) {
-        player.sendMessage("b");
+        // インベントリを用意
         Inventory inv;
+        // インベントリに大きさ・名前を設定して開く
         inv = Bukkit.createInventory(null, 45, "SHOP");
+        // 一旦中身をクリアする
         inv.clear();
 
         // アイテムを並べる

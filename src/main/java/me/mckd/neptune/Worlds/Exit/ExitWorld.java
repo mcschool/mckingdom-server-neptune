@@ -53,12 +53,15 @@ public class ExitWorld implements Listener {
             return;
         }
         if (e.getBlock().getType() == Material.LOG_2) {
+            // 壊したブロックが原木だった場合
             e.setCancelled(true);
             Block block = e.getBlock();
             World world = block.getWorld();
             block.setType(Material.REDSTONE_BLOCK);
+            // カウントを1減らす
             this.count--;
             List<Player> players = e.getBlock().getWorld().getPlayers();
+            // 全プレーヤーにメッセージ
             for (Player p: players) {
                 if (this.count == 0) {
                     p.sendTitle("全部壊した！", "", 20, 20, 20);
@@ -66,6 +69,7 @@ public class ExitWorld implements Listener {
                     p.sendTitle("あと" + String.valueOf(this.count) + "個", "", 20, 20, 20);
                 }
             }
+            // 原木を全部壊したら全員にメッセージ
             if (this.count == 0) {
                 world.getBlockAt(new Location(world, -1026, 4, -1141)).setType(Material.AIR);
                 world.getBlockAt(new Location(world, -1026, 5, -1141)).setType(Material.AIR);
@@ -95,10 +99,12 @@ public class ExitWorld implements Listener {
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == 0) {
+                // 鬼
                 player.setDisplayName("A");
                 Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
             } else {
+                // 鬼じゃ無い方
                 player.setDisplayName("B");
                 Location location = new Location(world, -1024, 5, -1089);
                 player.teleport(location);
