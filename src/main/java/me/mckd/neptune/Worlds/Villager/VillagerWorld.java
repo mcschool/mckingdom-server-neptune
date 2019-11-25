@@ -97,6 +97,9 @@ public class VillagerWorld implements Listener {
 
         // アイテムを並べる
         inv.setItem(0, this.setItemForGui(Material.IRON_AXE, "10", 1));
+
+        // インベントリ開く
+        player.openInventory(inv);
     }
 
     public ItemStack setItemForGui(Material material, String name, int count) {
