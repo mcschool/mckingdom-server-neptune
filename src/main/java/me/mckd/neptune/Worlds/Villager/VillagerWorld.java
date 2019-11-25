@@ -102,6 +102,7 @@ public class VillagerWorld implements Listener {
         }
         if (e.getInventory().getType() == InventoryType.MERCHANT) {
             e.setCancelled(true);
+            this.openGui(player);
         }
     }
 
