@@ -13,7 +13,9 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -80,6 +82,30 @@ public class VillagerWorld implements Listener {
 
         Entity entity = e.getRightClicked();
         player.sendMessage(entity.getType().toString());
+        if (entity.getType().toString().equals("VILLAGER")) {
+            this.openGui(player);
+        }
+    }
+
+    public void openGui(Player player) {
+        Inventory inv;
+        inv = Bukkit.createInventory(null, 45, "SHOP");
+        inv.clear();
+
+        // アイテムを並べる
+        inv.setItem(0, this.setItemForGui(Material.IRON_AXE, "10", 1));
+    }
+
+    public ItemStack setItemForGui(Material material, String name, int count) {
+        // アイテムスタックを設定
+        ItemStack itemStack = new ItemStack(material, count);
+        // アイテムのメタ情報を取得
+        ItemMeta itemMeta  = itemStack.getItemMeta();
+        // アイテムの名前を設定
+        itemMeta.setDisplayName(name);
+        // アイテムのメタ情報を上書き
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
     }
 
 }
