@@ -83,11 +83,13 @@ public class VillagerWorld implements Listener {
         Entity entity = e.getRightClicked();
         player.sendMessage(entity.getType().toString());
         if (entity.getType().toString().equals("VILLAGER")) {
+            player.sendMessage("a");
             this.openGui(player);
         }
     }
 
     public void openGui(Player player) {
+        player.sendMessage("b");
         Inventory inv;
         inv = Bukkit.createInventory(null, 45, "SHOP");
         inv.clear();
