@@ -7,12 +7,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -30,7 +28,9 @@ public class LobbyWorld implements Listener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent e) {
         Player player = e.getPlayer();
+        player.sendMessage("a");
         if (player.getWorld().getName().equals("lobby")) {
+            player.sendMessage("b");
             player.setGameMode(GameMode.ADVENTURE);
             player.getInventory().clear();
 
@@ -38,20 +38,34 @@ public class LobbyWorld implements Listener {
             ItemMeta arrowMeta = arrow.getItemMeta();
             arrowMeta.setDisplayName("ArrowWarp");
             arrow.setItemMeta(arrowMeta);
-            player.getInventory().setItem(9, arrow);
+            player.getInventory().setItem(0, arrow);
 
             // VSAにいくためのブーツ渡す
             ItemStack boots = new  ItemStack(Material.DIAMOND_BOOTS);
             ItemMeta bootsMeta = boots.getItemMeta();
             bootsMeta.setDisplayName("VSAに行く");
             boots.setItemMeta(bootsMeta);
-            player.getInventory().setItem(10,boots);
+            player.getInventory().setItem(1,boots);
+
+            // Exitに行くためのグローストーン渡す
+            ItemStack glow = new ItemStack(Material.GLOWSTONE);
+            ItemMeta glowMeta = glow.getItemMeta();
+            glowMeta.setDisplayName("Exitに行く");
+            glow.setItemMeta(glowMeta);
+            player.getInventory().setItem(2, glow);
+
+            // VillagerWarsに行くためのエメラルド渡す
+            ItemStack emerald = new ItemStack(Material.EMERALD);
+            ItemMeta emeraldMeta = emerald.getItemMeta();
+            emeraldMeta.setDisplayName("VillagerWarsに行く");
+            emerald.setItemMeta(emeraldMeta);
+            player.getInventory().setItem(3, emerald);
 
             ItemStack bed = new ItemStack(Material.BED);
             ItemMeta itemMeta = bed.getItemMeta();
             itemMeta.setDisplayName("ホームに戻る");
             bed.setItemMeta(itemMeta);
-            player.getInventory().setItem(34, bed);
+            player.getInventory().setItem(8, bed);
         }
     }
 
@@ -93,6 +107,33 @@ public class LobbyWorld implements Listener {
         if(e.getNewGameMode() == GameMode.SPECTATOR) {
             player. sendMessage ("キンシ！");
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().getName().equals("lobby")) {
+            return;
+        }
+        // 空中を右クリックした場合
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            // かつ矢を持っていた場合
+            if (e.getMaterial() == Material.ARROW) {
+                player.performCommand("mvtp arrow");
+            }
+            // かつダイヤモンドブーツを持っていた場合
+            if (e.getMaterial() == Material.DIAMOND_BOOTS) {
+                player.performCommand("mvtp vsa");
+            }
+            // かつグローストーンを持っていた場合
+            if (e.getMaterial() == Material.GLOWSTONE) {
+                player.performCommand("mvtp exit");
+            }
+            // かつエメラルドを持っていた場合
+            if (e.getMaterial() == Material.EMERALD) {
+                player.performCommand("mvtp villager");
+            }
         }
     }
 }

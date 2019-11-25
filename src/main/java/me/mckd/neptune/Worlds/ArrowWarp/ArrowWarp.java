@@ -1,17 +1,18 @@
-package me.mckd.neptune.Worlds;
+package me.mckd.neptune.Worlds.ArrowWarp;
 
 import me.mckd.neptune.Neptune;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -47,19 +48,20 @@ public class ArrowWarp implements Listener {
         ItemMeta itemMeta = bed.getItemMeta();
         itemMeta.setDisplayName("ロビーに戻る");
         bed.setItemMeta(itemMeta);
-        player.getInventory().setItem(35, bed);
-
+        player.getInventory().setItem(8, bed);
     }
 
     @EventHandler
     public void arrowShot(ProjectileHitEvent e) {
         if (!e.getEntity().getWorld().getName().equals("arrow")) return;
         if (e.getEntity() instanceof Arrow) {
-            World world = e.getEntity().getWorld();
             Arrow arrow = (Arrow)e.getEntity();
             Location location = arrow.getLocation();
-            Player player = (Player)e.getEntity().getShooter();
-            player.teleport(location);
+            Double y = location.getY();
+            if (y > 170) {
+                Player player = (Player) e.getEntity().getShooter();
+                player.teleport(location);
+            }
         }
     }
 
@@ -83,5 +85,25 @@ public class ArrowWarp implements Listener {
             player.performCommand("mvtp lobby");
         }
     }
+
+    @EventHandler
+    public void signClick(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        if (!p.getWorld().getName().equals("arrow")) {
+            return;
+        }
+        Block b = e.getClickedBlock();
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && b.getType() == Material.SIGN_POST) {
+            Sign sign;
+            sign = (Sign) b.getState();
+            String line = sign.getLine(1);
+            if (line.equals("stage 1")) {
+                Location location = new Location(p.getWorld(), -1601, 197, 721);
+                p.teleport(location);
+            }
+        }
+    }
+
+    // 11.26
 
 }

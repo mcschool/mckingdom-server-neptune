@@ -1,0 +1,37 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+    steps:
+      - checkout
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e0:af:86:16:02:0b:53:3c:27:47:6c:34:1c:b5:de:08"
+      - run:
+          name: Start ssh-keyscan
+          command: |
+            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
+      - run:
+          command: |
+            ssh -p 22 $USER_NAME@$HOST_NAME "whoami && source ~/.bash_profile && cd /home/ys/mckingdom-server-neptune && sh deploy.sh"
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master

@@ -7,12 +7,18 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -34,12 +40,17 @@ public class VillagerWorld implements Listener {
             return;
         }
         // スケジューラーを開始する
-        new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 80);
+        // new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 80);
 
         World world =player.getWorld();
+        player.getInventory().clear();
         player.sendMessage(String.valueOf(world.getPlayers().size()));
-        if (world.getPlayers().size() == 1) {
-            new JoinCheckScheduler(this.plugin, world).runTaskTimer(this.plugin, 0, 20);
+        // n人以上集まったらゲームスタート
+        if (world.getPlayers().size() >= 2) {
+            // new JoinCheckScheduler(this.plugin, world).runTaskTimer(this.plugin, 0, 20);
+            // this.start();
+            new SpawnDiamondScheduler(this.plugin,player.getWorld()).runTaskTimer(this.plugin, 0 , 100);
+            new SpawnIronScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 20);
         }
     }
 
@@ -65,12 +76,6 @@ public class VillagerWorld implements Listener {
         }
         e.setCancelled(true);
     }
-    @EventHandler
-    public void onPlayerChangeWorld(PlayerChangedWorldEvent e){
-        Player player=e.getPlayer();
-        if(!e.getPlayer().getWorld().getName().equals(this.worldName)){
-            return;
-        }
-        new SpawnDiamondScheduler(this.plugin,player.getWorld()).runTaskTimer(this.plugin, 0 , 100);
-    }
+
+    // 11.25
 }
