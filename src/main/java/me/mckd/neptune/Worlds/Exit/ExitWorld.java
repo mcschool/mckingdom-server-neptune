@@ -98,12 +98,12 @@ public class ExitWorld implements Listener {
             if (i == 0) {
 
                 player.setDisplayName("A");
-                Location location = new Location(world, -1026, 5, -1);
+                Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
             }else {
 
                 player.setDisplayName("B");
-                Location location = new Location(world,-1024,5,-1138);
+                Location location = new Location(world,-1024,5,-1089);
                 player.teleport(location);
             }
         }
