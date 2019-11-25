@@ -7,12 +7,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -109,6 +107,33 @@ public class LobbyWorld implements Listener {
         if(e.getNewGameMode() == GameMode.SPECTATOR) {
             player. sendMessage ("キンシ！");
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().getName().equals("lobby")) {
+            return;
+        }
+        // 空中を右クリックした場合
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            // かつ矢を持っていた場合
+            if (e.getMaterial() == Material.ARROW) {
+                player.performCommand("mvtp arrow");
+            }
+            // かつダイヤモンドブーツを持っていた場合
+            if (e.getMaterial() == Material.DIAMOND_BOOTS) {
+                player.performCommand("mvtp vsa");
+            }
+            // かつグローストーンを持っていた場合
+            if (e.getMaterial() == Material.GLOWSTONE) {
+                player.performCommand("mvtp exit");
+            }
+            // かつエメラルドを持っていた場合
+            if (e.getMaterial() == Material.EMERALD) {
+                player.performCommand("mvtp villager");
+            }
         }
     }
 }
