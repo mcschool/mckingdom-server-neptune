@@ -11,6 +11,8 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -89,6 +91,17 @@ public class VillagerWorld implements Listener {
             player.sendMessage("a");
             e.setCancelled(true);
             this.openGui(player);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryOpen(InventoryOpenEvent e) {
+        Player player = (Player) e.getPlayer();
+        if (!player.getWorld().getName().equals("villager")) {
+            return;
+        }
+        if (e.getInventory().getType() == InventoryType.MERCHANT) {
+            e.setCancelled(true);
         }
     }
 
