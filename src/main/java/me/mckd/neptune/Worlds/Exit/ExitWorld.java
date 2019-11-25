@@ -77,6 +77,8 @@ public class ExitWorld implements Listener {
         world.getBlockAt(new Location(world, -1030, 5, -1090)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world, -1052, 4, -1086)).setType(Material.LOG_2);
 
+        world.getBlockAt(new Location(world, -1025, 4, -1140)).setType(Material.REDSTONE_BLOCK);
+        world.getBlockAt(new Location(world, -1025, 5, -1140)).setType(Material.REDSTONE_BLOCK);
         // レッドストーンランプカウントリセット
         this.count = 5;
 
