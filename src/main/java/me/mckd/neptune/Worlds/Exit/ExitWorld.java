@@ -53,6 +53,7 @@ public class ExitWorld implements Listener {
             return;
         }
         if (e.getBlock().getType() == Material.LOG_2) {
+            e.setCancelled(true);
             Block block = e.getBlock();
             block.setType(Material.GOLD_BLOCK);
             player.sendMessage(e.getBlock().toString());
