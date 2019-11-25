@@ -113,6 +113,7 @@ public class ArrowWarp implements Listener {
         if (!player.getWorld().getName().equals("arrow")) {
             return;
         }
+        player.sendMessage("落下？");
         e.setCancelled(true);
     }
 
@@ -128,7 +129,7 @@ public class ArrowWarp implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if (player.getWorld().getName().equals("arrow")) {
+        if (!player.getWorld().getName().equals("arrow")) {
             return;
         }
         // ブロックを右クリック
