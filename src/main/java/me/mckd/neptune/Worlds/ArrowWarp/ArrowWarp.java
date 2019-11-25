@@ -150,6 +150,7 @@ public class ArrowWarp implements Listener {
         }
         // 空中を右クリックした時
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            // かつベットを持っていた場合
             if (e.getMaterial() == Material.BED) {
                 player.performCommand("mvtp lobby");
             }
