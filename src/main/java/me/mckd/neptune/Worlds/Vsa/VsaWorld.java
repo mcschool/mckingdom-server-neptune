@@ -42,13 +42,6 @@ public class VsaWorld implements Listener {
         player.getWorld().setPVP(false);
         player.getInventory().clear();
 
-        // ロビーに戻るためのコンパス渡す
-        ItemStack compass = new ItemStack(Material.COMPASS);
-        ItemMeta commpassMeta = compass.getItemMeta();
-        commpassMeta.setDisplayName("ロビーに戻る");
-        compass.setItemMeta(commpassMeta);
-        player.getInventory().setItem(8, compass);
-
         player.teleport(location);
     }
 
@@ -88,37 +81,12 @@ public class VsaWorld implements Listener {
 
     // 看板がクリックされたときの処理
     public void signClicked(PlayerInteractEvent e) {
-        // 看板の1行目の文字を取得する
-        Sign sign;
-        sign = (Sign) e.getClickedBlock().getState();
-        String lineOne = sign.getLine(1);
-
-        // ワールドにいるプレーヤーを取得する
-        World world = e.getClickedBlock().getWorld();
-        List<Player> players = world.getPlayers();
-
-        // クリックした看板がstage1だった場合
-        if (lineOne.equals("stage1")) {
-            // ステージ1のスタート地点の座標を取得する
-            Location location = new Location(world, -210, 100, -100);
-            for (Player p: players) {
-                p.teleport(location);
-            }
-        }
     }
 
     public void done(Player player) {
         // player.sendTitle("CLEAR!!", "おめでとう！", 20, 20, 20);
         // player.teleport(this.lobbyLocation);
         // タイトルを表示
-        player.sendTitle("終了！", "一位は" + player.getDisplayName() + "さん", 20, 20,20);
-
-        // ワールドにいるプレーヤーを取得
-        World world = player.getWorld();
-        List<Player> players = world.getPlayers();
-        for (Player p: players) {
-            p.teleport(this.lobbyLocation);
-        }
     }
 
     @EventHandler
