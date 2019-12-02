@@ -84,11 +84,11 @@ public class ExitWorld implements Listener {
         World world = Bukkit.getWorld("exit");
         List<Player> players =world.getPlayers();
 
-        world.getBlockAt(new Location(world,-1024,4,-1118)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1023,4,-1117)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1004,4,-1135)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1000,4,-1086)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1001,4,-1087)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1031,5,-1091)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1052,4,-1086)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1053,4,-1087)).setType(Material.LOG_2);
 
         world.getBlockAt(new Location(world,-1026,4,-1141)).setType(Material.IRON_FENCE);
         world.getBlockAt(new Location(world,-1026,5,-1141)).setType(Material.IRON_FENCE);
