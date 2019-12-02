@@ -11,6 +11,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.List;
 
@@ -28,7 +31,6 @@ public class ExitWorld implements Listener {
     @EventHandler
     public void onPlayerChangedWorldEvent(PlayerChangedWorldEvent e) {
         Player player = e.getPlayer();
-        player.sendMessage("aaaaaa");
         if (!player.getWorld().getName().equals(this.worldName)) {
             return;
         }
@@ -96,15 +98,16 @@ public class ExitWorld implements Listener {
         for(int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == 0) {
-
                 player.setDisplayName("A");
                 Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
+                this.setStatus(player);
             }else {
-
                 player.setDisplayName("B");
                 Location location = new Location(world,-1024,5,-1089);
                 player.teleport(location);
+                // 装備を整える関数を実行
+                this.setEquipment(player);
             }
         }
     }
@@ -123,5 +126,20 @@ public class ExitWorld implements Listener {
 
             player.teleport(location);
         }
+    }
+
+    public void setEquipment(Player player) {
+        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET); // ヘルメット
+        ItemStack chestPlate = new ItemStack(Material.LEATHER_CHESTPLATE); // チェストプレート
+        ItemStack boots = new ItemStack(Material.LEATHER_BOOTS); // ブーツ
+        ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS); // レギンス
+
+        player.getEquipment().setHelmet(helmet);
+        player.getEquipment().setChestplate(chestPlate);
+        player.getEquipment().setBoots(boots);
+        player.getEquipment().setLeggings(leggings);
+    }
+
+    public void setStatus(Player player) {
     }
 }
