@@ -87,7 +87,7 @@ public class ExitWorld implements Listener {
         world.getBlockAt(new Location(world,-1024,4,-1118)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1004,4,-1135)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1000,4,-1086)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1030,5,+1090)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1031,5,-1091)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1052,4,-1086)).setType(Material.LOG_2);
 
         world.getBlockAt(new Location(world,-1026,4,-1141)).setType(Material.IRON_FENCE);
