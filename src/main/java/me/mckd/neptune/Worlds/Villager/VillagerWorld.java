@@ -96,6 +96,7 @@ public class VillagerWorld implements Listener {
         inv.clear();
 
         inv.setItem(0, this.setItemForGui(Material.IRON_AXE, "10", 1));
+        inv.setItem(1, this.setItemForGui(Material.DIRT, "1",16));
         player.openInventory(inv);
     }
 
