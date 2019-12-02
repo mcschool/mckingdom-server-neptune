@@ -23,7 +23,7 @@ public class SpawnIronScheduler extends BukkitRunnable {
         this.world.dropItemNaturally(location, new ItemStack(Material.IRON_INGOT));
 
 
-        Location location2 = new Location(this.world, -822, 201, 259);
+        Location location2 = new Location(this.world, -822, 201, -259);
         this.world.dropItemNaturally(location2, new ItemStack(Material.IRON_INGOT));
 
 
