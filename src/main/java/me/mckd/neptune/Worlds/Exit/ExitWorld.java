@@ -129,15 +129,6 @@ public class ExitWorld implements Listener {
     }
 
     public void setEquipment(Player player) {
-        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET); // ヘルメット
-        ItemStack chestPlate = new ItemStack(Material.LEATHER_CHESTPLATE); // チェストプレート
-        ItemStack boots = new ItemStack(Material.LEATHER_BOOTS); // ブーツ
-        ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS); // レギンス
-
-        player.getEquipment().setHelmet(helmet);
-        player.getEquipment().setChestplate(chestPlate);
-        player.getEquipment().setBoots(boots);
-        player.getEquipment().setLeggings(leggings);
     }
 
     public void setStatus(Player player) {
