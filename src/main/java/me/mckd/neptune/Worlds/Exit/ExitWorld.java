@@ -3,6 +3,8 @@ package me.mckd.neptune.Worlds.Exit;
 import me.mckd.neptune.Neptune;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +36,9 @@ public class ExitWorld implements Listener {
         if (!player.getWorld().getName().equals(this.worldName)) {
             return;
         }
+
+        // ver: 0.2 サバイバルにする
+        player.setGameMode(GameMode.SURVIVAL);
 
         // 今ワールドにいるプレーヤーの人数を調べる
         List<Player> players = player.getWorld().getPlayers();
@@ -76,6 +81,10 @@ public class ExitWorld implements Listener {
                 world.getBlockAt(new Location(world, -1026, 4, -1141)).setType(Material.AIR);
                 world.getBlockAt(new Location(world, -1026, 5, -1141)).setType(Material.AIR);
             }
+        } else {
+            // ver:0.2 壊せちゃう問題
+            // 原木以外はブロックの破壊をキャンセル
+            e.setCancelled(true);
         }
     }
 
@@ -101,13 +110,25 @@ public class ExitWorld implements Listener {
                 player.setDisplayName("A");
                 Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
+                // ver0.2: プレーヤーに自分の役割のメッセージを送る
+                player.sendTitle("あなたは鬼です", "全員を捕まえてください", 20, 40, 20);
                 this.setStatus(player);
             }else {
                 player.setDisplayName("B");
                 Location location = new Location(world,-1024,5,-1089);
                 player.teleport(location);
+                // ver0.2: プレーヤーに自分の役割のメッセージを送る
+                player.sendTitle("あなたは〇〇です", "鬼に捕まらないようにしながら原木を壊してください", 20, 40, 20);
                 // 装備を整える関数を実行
                 this.setEquipment(player);
+            }
+        }
+
+        // ver0.2: 落っこちているアイテムを削除する
+        List<Entity> entities = world.getEntities();
+        for (Entity entity: entities) {
+            if (entity instanceof Item) {
+                entity.remove();
             }
         }
     }
@@ -121,7 +142,10 @@ public class ExitWorld implements Listener {
 
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-
+            // ver0.2: プレーヤーが鬼だったら牢屋に入れるプログラムを実行させない
+            if (isOni(player)) {
+                return;
+            }
             Location location = new Location(e.getEntity().getWorld(),-997,29,-1080);
 
             player.teleport(location);
@@ -142,5 +166,29 @@ public class ExitWorld implements Listener {
 
 
     public void setStatus(Player player) {
+    }
+
+    // ver0.2: 鬼かどうかを判定する関数
+    public Boolean isOni(Player player) {
+        if (player.getDisplayName().equals("A")) {
+            return true;
+        }
+        return false;
+    }
+
+    // ver0.2: エンダーチェストをクリックしたら10秒のカウントダウン後に
+    // 全員をロビーへテレポート
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (player.getWorld().getName().equals("exit")) {
+            return;
+        }
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            Block block = e.getClickedBlock();
+            if (block.getType() == Material.ENDER_CHEST) {
+                new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
+            }
+        }
     }
 }
