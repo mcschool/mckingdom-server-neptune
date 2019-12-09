@@ -87,6 +87,7 @@ public class VsaWorld implements Listener {
         // player.sendTitle("CLEAR!!", "おめでとう！", 20, 20, 20);
         // player.teleport(this.lobbyLocation);
         // タイトルを表示
+        player.sendTitle("終了！", "一位は" + player.getDisplayName() + "さん", 20, 20,20);
     }
 
     @EventHandler

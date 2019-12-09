@@ -84,11 +84,11 @@ public class ExitWorld implements Listener {
         World world = Bukkit.getWorld("exit");
         List<Player> players =world.getPlayers();
 
-        world.getBlockAt(new Location(world,-1024,4,-1118)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1021,4,-1119)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1004,4,-1135)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1000,4,-1086)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1030,5,-1090)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1052,4,-1086)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1001,4,-1087)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1031,5,-1091)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1053,4,-1087)).setType(Material.LOG_2);
 
         world.getBlockAt(new Location(world,-1026,4,-1141)).setType(Material.IRON_FENCE);
         world.getBlockAt(new Location(world,-1026,5,-1141)).setType(Material.IRON_FENCE);
@@ -129,7 +129,17 @@ public class ExitWorld implements Listener {
     }
 
     public void setEquipment(Player player) {
+        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+        ItemStack chestPlate = new ItemStack(Material.LEATHER_CHESTPLATE);
+        ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+        ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS);
+
+        player.getEquipment().setHelmet(helmet);
+        player.getEquipment().setChestplate(chestPlate);
+        player.getEquipment().setBoots(boots);
+        player.getEquipment().setLeggings(leggings);
     }
+
 
     public void setStatus(Player player) {
     }
