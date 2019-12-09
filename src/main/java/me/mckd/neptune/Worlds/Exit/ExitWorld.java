@@ -111,11 +111,13 @@ public class ExitWorld implements Listener {
             Player player = players.get(i);
             if (i == 0) {
                 player.setDisplayName("A");
+                player.setCustomName("A");
                 Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
                 this.setStatus(player);
             }else {
                 player.setDisplayName("B");
+                player.setCustomName("B");
                 Location location = new Location(world,-1024,5,-1089);
                 player.teleport(location);
                 // 装備を整える関数を実行
