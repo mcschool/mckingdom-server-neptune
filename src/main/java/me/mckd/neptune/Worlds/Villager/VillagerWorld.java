@@ -5,11 +5,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -26,6 +29,12 @@ public class VillagerWorld implements Listener {
 
     Neptune plugin;
     String worldName = "villager";
+    // ver0.2: ゲームの状態
+    String gameStatus = "preparation"; // preparation or start
+    Boolean isRedTeamVillagerDied = false;
+    Boolean isBlueTeamVillagerDied = false;
+    Boolean isGreenTeamVillagerDied = false;
+    Boolean isYellowTeamVillagerDied = false;
 
     public VillagerWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -48,7 +57,7 @@ public class VillagerWorld implements Listener {
         // n人以上集まったらゲームスタート
         if (world.getPlayers().size() >= 1) {
             // new JoinCheckScheduler(this.plugin, world).runTaskTimer(this.plugin, 0, 20);
-            // this.start();
+            this.gameStart();
             new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 100);
             new SpawnIronScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 20);
         }
@@ -108,6 +117,72 @@ public class VillagerWorld implements Listener {
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
+
+
+    // ver0.2: ブロックを壊した時のイベント
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().getName().equals("villager")) {
+            return;
+        }
+        // テスト用にレッドストーンブロックを壊したらゲーム終了
+        if (e.getBlock().getType() == Material.REDSTONE_BLOCK) {
+            this.gameFinish();
+            return;
+        }
+        // テスト用にエンチャントテーブルを壊したらゲームスタート
+        if (e.getBlock().getType() == Material.ENCHANTMENT_TABLE) {
+            this.gameStart();
+            return;
+        }
+    }
+
+    // ver0.2: ゲームスタートした時に呼ばれる
+    public void gameStart() {
+        World world = Bukkit.getWorld("villager");
+        // ゲームの状態をセットする
+        this.gameStatus = "start";
+        this.isBlueTeamVillagerDied = false;
+        this.isGreenTeamVillagerDied = false;
+        this.isRedTeamVillagerDied = false;
+        this.isYellowTeamVillagerDied = false;
+
+        // RED TEAM の Villagerをスポーン
+        Location locationRed = new Location(world, 100, 100, 100);
+        Villager villagerRed = (Villager) world.spawnEntity(locationRed, EntityType.VILLAGER);
+        villagerRed.setCustomName("TEAM RED");
+        // BLUE TEAM の Villagerをスポーン
+        // GREEN TEAM の Villagerをスポーン
+        // YELLOW TEAM の Villagerをスポーン
+
+        // プレーヤーを移動させる
+        List<Player> players = world.getPlayers();
+        for (int i=0; i<players.size(); i++) {
+            Player p = players.get(i);
+            if (i % 4 == 0) {
+                // RED
+                Location location = new Location(world, 100, 100, 100);
+                p.teleport(location);
+            }
+            if (i % 4 == 1) {
+                // GREEN
+            }
+            if (i % 4 == 2) {
+                // YELLOW
+            }
+            if (i % 4 == 3) {
+                // BLUE
+            }
+        }
+    }
+
+    // ver0.2: ゲーム終了した時に呼ばれる
+    public void gameFinish() {
+        this.gameStatus = "preparation";
+    }
+
+
 }
 
 
