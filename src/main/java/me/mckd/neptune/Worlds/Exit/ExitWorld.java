@@ -3,6 +3,8 @@ package me.mckd.neptune.Worlds.Exit;
 import me.mckd.neptune.Neptune;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +36,8 @@ public class ExitWorld implements Listener {
         if (!player.getWorld().getName().equals(this.worldName)) {
             return;
         }
+
+        player.setGameMode(GameMode.SURVIVAL);
 
         // 今ワールドにいるプレーヤーの人数を調べる
         List<Player> players = player.getWorld().getPlayers();
@@ -75,9 +79,13 @@ public class ExitWorld implements Listener {
             if (this.count == 0) {
                 world.getBlockAt(new Location(world, -1026, 4, -1141)).setType(Material.AIR);
                 world.getBlockAt(new Location(world, -1026, 5, -1141)).setType(Material.AIR);
+            }else {
+                e.setCancelled(true);
             }
         }
     }
+
+
 
     // 11.25
     private void start() {
@@ -110,6 +118,13 @@ public class ExitWorld implements Listener {
                 this.setEquipment(player);
             }
         }
+
+        List<Entity> entities = world.getEntities();
+        for (Entity entity: entities) {
+            if (entity instanceof Item) {
+                entity.remove();
+            }
+        }
     }
 
     @EventHandler
@@ -121,6 +136,9 @@ public class ExitWorld implements Listener {
 
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
+            if(isOni(player)) {
+                return;
+            }
 
             Location location = new Location(e.getEntity().getWorld(),-997,29,-1080);
 
@@ -142,5 +160,30 @@ public class ExitWorld implements Listener {
 
 
     public void setStatus(Player player) {
+    }
+
+    public Boolean isOni(Player player) {
+        if (player.getDisplayName().equals("A")) {
+            return true;
+        }
+        return false;
+
+
+
+
+    }
+    @EventHandler
+    public  void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if(player.getWorld().getName().equals("exit")) {
+            return;
+
+        }
+        if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            Block block = e.getClickedBlock();
+            if (block.getType() == Material.ENDER_CHEST) {
+                new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
+            }
+        }
     }
 }
