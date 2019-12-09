@@ -177,12 +177,12 @@ public class ExitWorld implements Listener {
         Player player = e.getPlayer();
         if(!player.getWorld().getName().equals("exit")) {
             return;
-
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             Block block = e.getClickedBlock();
             if (block.getType() == Material.ENDER_CHEST) {
                 new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
+                e.setCancelled(true);
             }
         }
     }
