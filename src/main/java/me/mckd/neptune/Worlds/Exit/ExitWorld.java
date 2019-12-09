@@ -185,6 +185,7 @@ public class ExitWorld implements Listener {
             Block block = e.getClickedBlock();
             if (block.getType() == Material.ENDER_CHEST) {
                 new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
+                player.sendMessage("ENDER CLICKED");
                 e.setCancelled(true);
             }
         }
