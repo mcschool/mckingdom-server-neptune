@@ -81,9 +81,9 @@ public class ArrowWarp implements Listener {
         Double y = player.getLocation().getY();
         if (y < 180) {
             FileConfiguration config = plugin.getConfig();
-            Double sx = config.getDouble(player.getUniqueId().toString() + "-arrow-sheck-point-x" , e.getPlayer().getLocation().getX());
-            Double sy = config.getDouble(player.getUniqueId().toString() + "-arrow-sheck-point-x" , e.getPlayer().getLocation().getX());
-            Double sz = config.getDouble(player.getUniqueId().toString() + "-arrow-sheck-point-x" , e.getPlayer().getLocation().getX());
+            Double sx = config.getDouble(player.getUniqueId().toString() + "-arrow-check-point-x" , e.getPlayer().getLocation().getX());
+            Double sy = config.getDouble(player.getUniqueId().toString() + "-arrow-check-point-y" , e.getPlayer().getLocation().getY());
+            Double sz = config.getDouble(player.getUniqueId().toString() + "-arrow-check-point-z" , e.getPlayer().getLocation().getZ());
             Location location = new Location(e.getPlayer().getWorld(),sx,sy,sz);
 
             //Location location = player.getWorld().getSpawnLocation();
