@@ -22,10 +22,9 @@ public class ExitFinishScheduler extends BukkitRunnable {
         if(count<= 0) {
             for (Player p: players) {
                 p.performCommand("mvtp l0bby");
-
             }
+            this.cancel();
         }else{
-
             for (Player p: players) {
                 p.sendTitle(String.valueOf(count),"",0,20,0);
             }
