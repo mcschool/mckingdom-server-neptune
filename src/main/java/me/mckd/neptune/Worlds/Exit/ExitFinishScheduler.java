@@ -21,7 +21,7 @@ public class ExitFinishScheduler extends BukkitRunnable {
         this.count--;
         if(count<= 0) {
             for (Player p: players) {
-                p.performCommand("mvtp l0bby");
+                p.performCommand("mvtp lobby");
             }
             this.cancel();
         }else{
