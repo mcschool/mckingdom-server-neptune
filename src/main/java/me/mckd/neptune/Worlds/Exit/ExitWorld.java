@@ -79,9 +79,9 @@ public class ExitWorld implements Listener {
             if (this.count == 0) {
                 world.getBlockAt(new Location(world, -1026, 4, -1141)).setType(Material.AIR);
                 world.getBlockAt(new Location(world, -1026, 5, -1141)).setType(Material.AIR);
-            }else {
-                e.setCancelled(true);
             }
+        } else {
+            e.setCancelled(true);
         }
     }
 

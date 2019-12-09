@@ -153,13 +153,16 @@ public class ArrowWarp implements Listener {
                     e.setCancelled(true);
                 }
             }
-        }
-        if (e.getClickedBlock().getType() == Material.REDSTONE_BLOCK) {
-            FileConfiguration config = plugin.getConfig();
-            config.set(player.getUniqueId().toString() + "-arrow-check-point-x", e.getPlayer().getLocation().getX());
-            config.set(player.getUniqueId().toString() + "-arrow-check-point-y", e.getPlayer().getLocation().getY());
-            config.set(player.getUniqueId().toString() + "-arrow-check-point-z", e.getPlayer().getLocation().getZ());
-
+            if (e.getClickedBlock().getType() == Material.REDSTONE_BLOCK) {
+                FileConfiguration config = plugin.getConfig();
+                Double x = e.getPlayer().getLocation().getX();
+                Double y = e.getPlayer().getLocation().getY();
+                Double z = e.getPlayer().getLocation().getZ();
+                player.sendMessage("セーブしました。" + String.valueOf(x) + "/" + String.valueOf(y) + "/" + String.valueOf(z));
+                config.set(player.getUniqueId().toString() + "-arrow-check-point-x", e.getPlayer().getLocation().getX());
+                config.set(player.getUniqueId().toString() + "-arrow-check-point-y", e.getPlayer().getLocation().getY());
+                config.set(player.getUniqueId().toString() + "-arrow-check-point-z", e.getPlayer().getLocation().getZ());
+            }
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
             if(e.getMaterial() == Material.BED) {
