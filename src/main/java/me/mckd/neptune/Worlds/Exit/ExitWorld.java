@@ -38,6 +38,7 @@ public class ExitWorld implements Listener {
         }
 
         player.setGameMode(GameMode.SURVIVAL);
+        player.getInventory().clear();
 
         // 今ワールドにいるプレーヤーの人数を調べる
         List<Player> players = player.getWorld().getPlayers();
