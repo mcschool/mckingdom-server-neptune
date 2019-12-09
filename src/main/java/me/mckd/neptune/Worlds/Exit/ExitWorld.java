@@ -58,6 +58,9 @@ public class ExitWorld implements Listener {
         if(!player.getWorld().getName().equals("exit")) {
             return;
         }
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
         if (e.getBlock().getType() == Material.LOG_2) {
             // 壊したブロックが原木だった場合
             e.setCancelled(true);
@@ -92,7 +95,7 @@ public class ExitWorld implements Listener {
         World world = Bukkit.getWorld("exit");
         List<Player> players =world.getPlayers();
 
-        world.getBlockAt(new Location(world,-1023,4,-1117)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world,-1025,4,-1119)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1004,4,-1135)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1001,4,-1087)).setType(Material.LOG_2);
         world.getBlockAt(new Location(world,-1031,5,-1091)).setType(Material.LOG_2);

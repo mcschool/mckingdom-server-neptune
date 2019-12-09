@@ -20,9 +20,8 @@ public class ExitFinishScheduler extends BukkitRunnable {
         List<Player> players = this.world.getPlayers();
         this.count--;
         if(count<= 0) {
-
             for (Player p: players) {
-                p.performCommand("mvtp lpbby");
+                p.performCommand("mvtp l0bby");
 
             }
         }else{
