@@ -175,7 +175,7 @@ public class ExitWorld implements Listener {
     @EventHandler
     public  void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if(player.getWorld().getName().equals("exit")) {
+        if(!player.getWorld().getName().equals("exit")) {
             return;
 
         }
