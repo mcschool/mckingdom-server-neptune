@@ -4,6 +4,7 @@ import me.mckd.neptune.Neptune;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -49,6 +50,14 @@ public class ArrowWarp implements Listener {
         itemMeta.setDisplayName("ロビーに戻る");
         bed.setItemMeta(itemMeta);
         player.getInventory().setItem(8, bed);
+
+
+        FileConfiguration config = plugin.getConfig();
+        Location location = player.getWorld().getSpawnLocation();
+        config.set(player.getUniqueId().toString() + "-arrow-check-point-x", location.getX());
+        config.set(player.getUniqueId().toString() + "-arrow-check-point-y", location.getY());
+        config.set(player.getUniqueId().toString() + "-arrow-check-point-z", location.getZ());
+
     }
 
     @EventHandler
@@ -71,7 +80,13 @@ public class ArrowWarp implements Listener {
         Player player = e.getPlayer();
         Double y = player.getLocation().getY();
         if (y < 180) {
-            Location location = player.getWorld().getSpawnLocation();
+            FileConfiguration config = plugin.getConfig();
+            Double sx = config.getDouble(player.getUniqueId().toString() + "-arrow-sheck-point-x" , e.getPlayer().getLocation().getX());
+            Double sy = config.getDouble(player.getUniqueId().toString() + "-arrow-sheck-point-x" , e.getPlayer().getLocation().getX());
+            Double sz = config.getDouble(player.getUniqueId().toString() + "-arrow-sheck-point-x" , e.getPlayer().getLocation().getX());
+            Location location = new Location(e.getPlayer().getWorld(),sx,sy,sz);
+
+            //Location location = player.getWorld().getSpawnLocation();
             player.sendMessage("失敗...");
             player.teleport(location);
         }
@@ -138,6 +153,13 @@ public class ArrowWarp implements Listener {
                     e.setCancelled(true);
                 }
             }
+        }
+        if (e.getClickedBlock().getType() == Material.REDSTONE_BLOCK) {
+            FileConfiguration config = plugin.getConfig();
+            config.set(player.getUniqueId().toString() + "-arrow-check-point-x", e.getPlayer().getLocation().getX());
+            config.set(player.getUniqueId().toString() + "-arrow-check-point-y", e.getPlayer().getLocation().getY());
+            config.set(player.getUniqueId().toString() + "-arrow-check-point-z", e.getPlayer().getLocation().getZ());
+
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
             if(e.getMaterial() == Material.BED) {
