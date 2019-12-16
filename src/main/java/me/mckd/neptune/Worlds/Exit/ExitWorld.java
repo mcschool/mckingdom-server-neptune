@@ -162,6 +162,24 @@ public class ExitWorld implements Listener {
                 );
                 // 装備を整える関数を実行
                 this.setEquipment(player);
+
+                new BukkitRunnable() {
+                    @Override
+                    public void  run() {
+                        ItemStack potion = new ItemStack(Material.POTION);
+                        PotionType potionType = PotionType.SPEED;
+                        PotionData potionData = new PotionData(
+                                potionType,
+                                false,
+                                false
+
+                        );
+                        PotionMeta meta = (PotionMeta) potion.getItemMeta();
+                        meta.setBasePotionData(potionData);
+                        potion.setItemMeta(meta);
+                        player.getInventory().addItem(potion);
+                    }
+                }.runTaskLater(this.plugin,200);
             }
         }
 
