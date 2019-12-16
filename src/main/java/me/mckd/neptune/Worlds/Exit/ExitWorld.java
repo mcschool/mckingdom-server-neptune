@@ -16,6 +16,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -113,6 +117,20 @@ public class ExitWorld implements Listener {
                 // ver0.2: プレーヤーに自分の役割のメッセージを送る
                 player.sendTitle("あなたは鬼です", "全員を捕まえてください", 20, 40, 20);
                 this.setStatus(player);
+
+                // ver0.2: 10病後にスピードのポーションあげる
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        ItemStack potion = new ItemStack(Material.POTION);
+                        PotionType potitonType = PotionType.SPEED;
+                        PotionData potionData = new PotionData(potitonType, false, false);
+                        PotionMeta meta = (PotionMeta) potion.getItemMeta();
+                        meta.setBasePotionData(potionData);
+                        potion.setItemMeta(meta);
+                        player.getInventory().addItem(potion);
+                    }
+                }.runTaskLater(this.plugin, 200);
             }else {
                 player.setDisplayName("B");
                 Location location = new Location(world,-1024,5,-1089);
@@ -121,6 +139,20 @@ public class ExitWorld implements Listener {
                 player.sendTitle("あなたは〇〇です", "鬼に捕まらないようにしながら原木を壊してください", 20, 40, 20);
                 // 装備を整える関数を実行
                 this.setEquipment(player);
+
+                // ver0.2: 10病後にスピードのポーションあげる
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        ItemStack potion = new ItemStack(Material.POTION);
+                        PotionType potitonType = PotionType.SPEED;
+                        PotionData potionData = new PotionData(potitonType, false, false);
+                        PotionMeta meta = (PotionMeta) potion.getItemMeta();
+                        meta.setBasePotionData(potionData);
+                        potion.setItemMeta(meta);
+                        player.getInventory().addItem(potion);
+                    }
+                }.runTaskLater(this.plugin, 200);
             }
         }
 
