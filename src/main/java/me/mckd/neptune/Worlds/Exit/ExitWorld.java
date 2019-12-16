@@ -16,6 +16,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -128,13 +131,22 @@ public class ExitWorld implements Listener {
 
 
                 this.setStatus(player);
-                /*
                 new BukkitRunnable() {
                     @Override
                     public  void  run() {
                         ItemStack potion = new ItemStack(Material.POTION);
+                        PotionType potionType = PotionType.SPEED;
+                        PotionData potionData = new PotionData(
+                                potionType,
+                                false,
+                                false
+                        );
+                        PotionMeta meta = (PotionMeta) potion.getItemMeta();
+                        meta.setBasePotionData(potionData);
+                        potion.setItemMeta(meta);
+                        player.getInventory().addItem(potion);
                     }
-                }*/
+                }.runTaskLater(this.plugin,200);
             }else {
                 player.setDisplayName("B");
                 player.setCustomName("B");
