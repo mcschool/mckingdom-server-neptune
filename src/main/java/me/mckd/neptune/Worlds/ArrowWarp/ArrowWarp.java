@@ -161,8 +161,15 @@ public class ArrowWarp implements Listener {
             }
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            // ベッドを持って右クリックしたらロビーに戻る
             if(e.getMaterial() == Material.BED) {
                 player.performCommand("mvtp lobby");
+            }
+            // コンパスを持って右クリックしたらスタート地点に戻る
+            if (e.getMaterial() == Material.COMPASS) {
+                World world = Bukkit.getWorld("arrow");
+                Location location = new Location(world, -1546, 196, 723);
+                player.teleport(location);
             }
         }
     }
