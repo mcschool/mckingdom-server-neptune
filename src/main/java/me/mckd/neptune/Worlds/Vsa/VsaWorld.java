@@ -81,6 +81,34 @@ public class VsaWorld implements Listener {
 
     // 看板がクリックされたときの処理
     public void signClicked(PlayerInteractEvent e) {
+        Block block = e.getClickedBlock();
+        Sign sign = (Sign) block.getState();
+        String line = sign.getLine(1);
+        this.move(line);
+    }
+
+    // ver0.2: 看板をクリックしたら全員をコースに移動させる
+    public void move(String courseName) {
+        Location location = null;
+        World world = Bukkit.getWorld("vsa");
+        if (courseName.equals("1")) {
+            location = new Location(world, 0, 0, 0);
+        }
+        if (courseName.equals("2")) {
+            location = new Location(world, 0, 0, 0);
+        }
+        // 増やせる
+        if (location == null) {
+            List<Player> players = world.getPlayers();
+            for (Player p: players) {
+                p.sendMessage("コースが見つかりません");
+            }
+        } else {
+            List<Player> players = world.getPlayers();
+            for (Player p : players) {
+                p.teleport(location);
+            }
+        }
     }
 
     public void done(Player player) {
