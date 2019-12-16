@@ -181,14 +181,15 @@ public class ExitWorld implements Listener {
         }
 
         if (e.getEntity() instanceof Player) {
-            Player player = (Player) e.getEntity();
-            if(isOni(player)) {
-                return;
+            if (e.getDamager() instanceof Player) {
+                Player damager = (Player) e.getDamager();
+                Player player = (Player) e.getDamager();
+                if (!isOni(damager)) {
+
+                    Location location = new Location(e.getEntity().getWorld(), -997, 29, -1080);
+                    player.teleport(location);
+                }
             }
-
-            Location location = new Location(e.getEntity().getWorld(),-997,29,-1080);
-
-            player.teleport(location);
         }
     }
 
@@ -209,7 +210,6 @@ public class ExitWorld implements Listener {
     }
 
     public Boolean isOni(Player player) {
-        player.sendMessage("isOni: " + player.getDisplayName());
         if (player.getDisplayName().equals("A")) {
             return true;
         }
