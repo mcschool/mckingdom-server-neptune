@@ -3,6 +3,7 @@ package me.mckd.neptune.Worlds.Beginers;
 import me.mckd.neptune.Neptune;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -10,8 +11,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.List;
 
 public class BeginersWorld implements Listener {
 
@@ -22,6 +27,25 @@ public class BeginersWorld implements Listener {
         this.plugin = plugin;
         this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
+
+    @EventHandler
+    public void onChangedWorld(PlayerChangedWorldEvent e) {
+        if (!e.getPlayer().getWorld().getName().equals("beginers")) {
+            return;
+        }
+        Player player = e.getPlayer();
+        World world = player.getWorld();
+        List<Player> players = world.getPlayers();
+        if (players.size() == 1) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    player.sendMessage("モンスターがでたよ");
+                }
+            }.runTaskLater(this.plugin, 20);
+        }
+    }
+
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
