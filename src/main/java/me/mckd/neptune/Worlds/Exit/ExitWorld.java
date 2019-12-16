@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -114,12 +115,38 @@ public class ExitWorld implements Listener {
                 player.setCustomName("A");
                 Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
+
+                player.sendTitle(
+                        "あなたは鬼です",
+                        "全員を捕まえてください",
+                20,
+                40,
+                20
+
+                );
+
+
+
                 this.setStatus(player);
+                /*
+                new BukkitRunnable() {
+                    @Override
+                    public  void  run() {
+                        ItemStack potion = new ItemStack(Material.POTION);
+                    }
+                }*/
             }else {
                 player.setDisplayName("B");
                 player.setCustomName("B");
                 Location location = new Location(world,-1024,5,-1089);
                 player.teleport(location);
+                player.sendTitle(
+                        "あなたは逃げる人です",
+                        "鬼に捕まえられないようにしながら原木を壊してください",
+                        20,
+                        40,
+                        20
+                );
                 // 装備を整える関数を実行
                 this.setEquipment(player);
             }
