@@ -201,7 +201,9 @@ public class ExitWorld implements Listener {
         if (e.getEntity() instanceof Player) {
             if (e.getDamager() instanceof Player) {
                 Player damager = (Player) e.getDamager();
+                damager.sendMessage("ダメージャー");
                 Player player = (Player) e.getEntity();
+                player.sendMessage("プレイヤー");
                 if (!isOni(damager)) {
 
                     Location location = new Location(e.getEntity().getWorld(), -997, 29, -1080);
