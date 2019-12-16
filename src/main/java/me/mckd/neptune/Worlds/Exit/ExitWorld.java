@@ -115,7 +115,13 @@ public class ExitWorld implements Listener {
                 Location location = new Location(world, -1026, 5, -1138);
                 player.teleport(location);
                 // ver0.2: プレーヤーに自分の役割のメッセージを送る
-                player.sendTitle("あなたは鬼です", "全員を捕まえてください", 20, 40, 20);
+                player.sendTitle(
+                        "あなたは鬼です",
+                        "全員を捕まえてください",
+                        20,
+                        40,
+                        20
+                );
                 this.setStatus(player);
 
                 // ver0.2: 10病後にスピードのポーションあげる
@@ -124,7 +130,11 @@ public class ExitWorld implements Listener {
                     public void run() {
                         ItemStack potion = new ItemStack(Material.POTION);
                         PotionType potitonType = PotionType.SPEED;
-                        PotionData potionData = new PotionData(potitonType, false, false);
+                        PotionData potionData = new PotionData(
+                                potitonType,
+                                false,
+                                false
+                        );
                         PotionMeta meta = (PotionMeta) potion.getItemMeta();
                         meta.setBasePotionData(potionData);
                         potion.setItemMeta(meta);
@@ -136,7 +146,13 @@ public class ExitWorld implements Listener {
                 Location location = new Location(world,-1024,5,-1089);
                 player.teleport(location);
                 // ver0.2: プレーヤーに自分の役割のメッセージを送る
-                player.sendTitle("あなたは〇〇です", "鬼に捕まらないようにしながら原木を壊してください", 20, 40, 20);
+                player.sendTitle(
+                        "あなたは〇〇です",
+                        "鬼に捕まらないようにしながら原木を壊してください",
+                        20,
+                        40,
+                        20
+                );
                 // 装備を整える関数を実行
                 this.setEquipment(player);
 
@@ -146,7 +162,11 @@ public class ExitWorld implements Listener {
                     public void run() {
                         ItemStack potion = new ItemStack(Material.POTION);
                         PotionType potitonType = PotionType.SPEED;
-                        PotionData potionData = new PotionData(potitonType, false, false);
+                        PotionData potionData = new PotionData(
+                                potitonType,
+                                false,
+                                false
+                        );
                         PotionMeta meta = (PotionMeta) potion.getItemMeta();
                         meta.setBasePotionData(potionData);
                         potion.setItemMeta(meta);
