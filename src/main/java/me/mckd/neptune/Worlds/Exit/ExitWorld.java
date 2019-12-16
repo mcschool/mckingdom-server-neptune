@@ -134,6 +134,7 @@ public class ExitWorld implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public  void  run() {
+                        player.sendMessage("potion");
                         ItemStack potion = new ItemStack(Material.POTION);
                         PotionType potionType = PotionType.SPEED;
                         PotionData potionData = new PotionData(
@@ -208,6 +209,7 @@ public class ExitWorld implements Listener {
     }
 
     public Boolean isOni(Player player) {
+        player.sendMessage("isOni: " + player.getDisplayName());
         if (player.getDisplayName().equals("A")) {
             return true;
         }
