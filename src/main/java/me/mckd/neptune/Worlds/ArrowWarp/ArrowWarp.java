@@ -168,7 +168,13 @@ public class ArrowWarp implements Listener {
             if(e.getMaterial() == Material.BED) {
                 player.performCommand("mvtp lobby");
             }
+            if (e.getMaterial() == Material.COMPASS) {
+                World world = Bukkit.getWorld("arrow");
+                Location location = new Location(world,-1546,196,723);
+                player.teleport(location);
+            }
         }
+
     }
 
 }
