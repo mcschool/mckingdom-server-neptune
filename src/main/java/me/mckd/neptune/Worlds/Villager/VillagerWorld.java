@@ -105,6 +105,14 @@ public class VillagerWorld implements Listener {
 
         inv.setItem(0, this.setItemForGui(Material.IRON_AXE, "10", 1));
         inv.setItem(1, this.setItemForGui(Material.DIRT, "1", 16));
+        inv.setItem(2, this.setItemForGui(Material.DIAMOND_SWORD, "15", 1));
+        inv.setItem(3, this.setItemForGui(Material.DIAMOND_HELMET, "12", 1));
+        inv.setItem(4, this.setItemForGui(Material.DIAMOND_CHESTPLATE, "12", 1));
+        inv.setItem(5, this.setItemForGui(Material.DIAMOND_LEGGINGS, "12", 1));
+        inv.setItem(6, this.setItemForGui(Material.DIAMOND_BOOTS, "12", 1));
+        inv.setItem(7, this.setItemForGui(Material.TNT, "25", 10));
+        inv.setItem(8, this.setItemForGui(Material.FLINT_AND_STEEL, "1", 1));
+        inv.setItem(9, this.setItemForGui(Material.ENDER_STONE, "1", 16));
         player.openInventory(inv);
     }
 
