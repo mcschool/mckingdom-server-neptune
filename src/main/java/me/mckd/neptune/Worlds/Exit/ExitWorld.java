@@ -13,6 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -28,6 +29,7 @@ public class ExitWorld implements Listener {
     Neptune plugin;
     String worldName = "exit";
     int count = 5;
+    boolean theWorld = false;
 
     public ExitWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -148,11 +150,11 @@ public class ExitWorld implements Listener {
                         player.getInventory().addItem(potion);
 
                         // ザ・ワールド
-                        ItemStack compass = new  ItemStack(Material.COMPASS);
-                        ItemMeta compassMeta = compass.getItemMeta();
-                        compassMeta.setDisplayName("ザ・ワールド");
-                        compass.setItemMeta(compassMeta);
-                        player.getInventory().addItem(compass);
+                        ItemStack watch = new  ItemStack(Material.WATCH);
+                        ItemMeta watchMeta = watch.getItemMeta();
+                        watchMeta.setDisplayName("ザ・ワールド");
+                        watch.setItemMeta(watchMeta);
+                        player.getInventory().addItem(watch);
 
                     }
                 }.runTaskLater(this.plugin,200);
@@ -266,17 +268,35 @@ public class ExitWorld implements Listener {
         }
         // 空中を右クリックした場合
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-            // かつコンパスを持っていた場合
-            if (e.getMaterial() == Material.COMPASS) {
+            // かつ時計を持っていた場合
+            if (e.getMaterial() == Material.WATCH) {
+                theWorld = true;
+                player.getInventory().remove(player.getItemInHand());
                 List<Player> players = player.getWorld().getPlayers();
-                for (Player p: players) {
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            p.sendTitle("ザ・ワールド！", "", 20, 20, 20);
-                        }
-                    }.runTaskLater(this.plugin, 200);
+                for (Player p : players) {
+                    p.sendTitle("ザ・ワールド！", "", 20, 200, 20);
                 }
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        theWorld = false;
+                    }
+                }.runTaskLater(this.plugin, 10);
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        Player player = e.getPlayer();
+        if (!e.getPlayer().getWorld().getName().equals(this.worldName)) {
+            return;
+        }
+
+        if ( theWorld ) {
+            if( player.getDisplayName().equals("B") ) {
+                e.setCancelled(true);
             }
         }
     }
