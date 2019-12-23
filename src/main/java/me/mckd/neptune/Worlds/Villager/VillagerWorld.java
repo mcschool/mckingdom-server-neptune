@@ -119,7 +119,6 @@ public class VillagerWorld implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        /*
         Player player = e.getPlayer();
         if (!player.getWorld().getName().equals("villager")) {
             return;
@@ -131,33 +130,46 @@ public class VillagerWorld implements Listener {
         if (e.getBlock().getType() == Material.ENCHANTMENT_TABLE) {
             this.gameStart();
         }
-        */
     }
-    public void gameStart(){
-        /*
-        World world=Bukkit.getWorld("villager");
-        this.gameStatus="start";
-        this.isBlueTeamVillagerDied=false;
-        this.isGreenTeamVillagerDied=false;
-        this.isRedTeamVillagerDied=false;
-        this.isYelowTeamVillagerDied=false;
+    public void gameStart() {
+        World world = Bukkit.getWorld("villager");
+        this.gameStatus = "start";
+        this.isBlueTeamVillagerDied = false;
+        this.isGreenTeamVillagerDied = false;
+        this.isRedTeamVillagerDied = false;
+        this.isYelowTeamVillagerDied = false;
 
-        Location locationRed=new Location(world, 100, 100, 100);
-        Villager villagerRed=(Villager) world.spawnEntity(locationRed, EntityType.Villager);
+        Location locationRed = new Location(world, 100, 100, 100);
+        Villager villagerRed = (Villager) world.spawnEntity(locationRed, EntityType.VILLAGER);
 
-        List<Player> players=world.getPlayers();
-        for (int i=0; 1<players.size();i++) {
+        List<Player> players = world.getPlayers();
+        for (int i = 0; 1 < players.size(); i++) {
             Player p = players.get(i);
-            if (i % 4 == 0) ;
+            if (i % 4 == 0) {
 
-            Location location = new Location(world, 100, 100, 100);
-            p.teleport(location);
-            
+                Location location = new Location(world, -867, 201, -307);
+                p.teleport(location);
+            }
+            if (i % 4 == 1) {
+
+                Location location = new Location(world, -777, 201, -307);
+                p.teleport(location);
+            }
+            if (i % 4 == 2) {
+
+                Location location = new Location(world, -822, 201, -262);
+                p.teleport(location);
+            }
+            if (i % 4 == 3) {
+
+                Location location = new Location(world, -822, 201, -352);
+                p.teleport(location);
+            }
         }
-        */
-
     }
-
+    public void gameFinish(){
+        this.gameStatus = "Preperation";
+    }
 }
 
 

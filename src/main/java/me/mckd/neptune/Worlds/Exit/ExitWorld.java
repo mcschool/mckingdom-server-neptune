@@ -201,15 +201,17 @@ public class ExitWorld implements Listener {
         if (e.getEntity() instanceof Player) {
             if (e.getDamager() instanceof Player) {
                 Player damager = (Player) e.getDamager();
-                damager.sendMessage("ダメージャー");
                 Player player = (Player) e.getEntity();
-                player.sendMessage("プレイヤー");
-                if (!isOni(damager)) {
+                if (isOni(damager)) {
 
                     Location location = new Location(e.getEntity().getWorld(), -997, 29, -1080);
                     player.teleport(location);
                 }
             }
+        }
+        World world = e.getEntity().getWorld();
+        if( this.isAllCatched(world) ){
+            this.oniWon(world);
         }
     }
 
@@ -254,4 +256,29 @@ public class ExitWorld implements Listener {
             }
         }
     }
+
+    private boolean isAllCatched(World world){
+
+        List<Player> players = world.getPlayers();
+        for (Player player: players) {
+
+            Location loc = player.getLocation();
+            if(player.getDisplayName().equals("B") ) {
+                if (loc.getY() < 20) {
+                    return false;
+                }
+            }
+        }
+        return  true;
+    }
+
+    private void oniWon(World world){
+
+        List<Player> players = world.getPlayers();
+
+        for(Player p: players) {
+            p.sendTitle("鬼の勝ち！","",20,20,20);
+        }
+    }
 }
+
