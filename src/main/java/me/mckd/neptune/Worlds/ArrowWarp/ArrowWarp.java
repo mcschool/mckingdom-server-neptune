@@ -112,10 +112,18 @@ public class ArrowWarp implements Listener {
             Sign sign;
             sign = (Sign) b.getState();
             String line = sign.getLine(1);
+            // 看板にstage1と書いてあったら
             if (line.equals("stage 1")) {
                 Location location = new Location(p.getWorld(), -1601, 197, 721);
                 p.teleport(location);
             }
+            // ここまで
+            if (line.equals("1マスコース")) {
+                Location location = new Location(p.getWorld(), -1546 ,197,  691);
+                p.teleport(location);
+
+            }
+
         }
     }
 
