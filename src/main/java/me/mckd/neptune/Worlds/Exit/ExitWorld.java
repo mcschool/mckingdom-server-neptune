@@ -28,6 +28,7 @@ public class ExitWorld implements Listener {
     Neptune plugin;
     String worldName = "exit";
     int count = 5;
+    boolean theWorld = false;
 
     public ExitWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -179,11 +180,11 @@ public class ExitWorld implements Listener {
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
 
-                        ItemStack compass = new ItemStack(Material.COMPASS);
-                        ItemMeta compassMeta = compass.getItemMeta();
-                        compassMeta.setDisplayName("ザ・ワールド");
-                        compass.setItemMeta(compassMeta);
-                        player.getInventory().addItem(compass);
+                        ItemStack watch = new ItemStack(Material.WATCH);
+                        ItemMeta watchMeta = watch.getItemMeta();
+                        watchMeta.setDisplayName("ザ・ワールド");
+                        watch.setItemMeta(watchMeta);
+                        player.getInventory().addItem(watch);
                     }
                 }.runTaskLater(this.plugin,200);
             }
@@ -263,11 +264,19 @@ public class ExitWorld implements Listener {
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 
-            if(e.getMaterial()  == Material.COMPASS) {
+            if(e.getMaterial()  == Material.WATCH) {
+                theWorld = true;
+                player.getInventory().remove(player.getItemInHand());
                 List<Player>players = player.getWorld().getPlayers();
                 for (Player p: players) {
                     p.sendTitle("ザ・ワールド！","",20,180,20);
                 }
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        theWorld = false;
+                    }
+                }.runTaskLater(this.plugin,10);
             }
         }
     }
