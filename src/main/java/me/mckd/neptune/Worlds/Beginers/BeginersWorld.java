@@ -15,6 +15,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.List;
 
 public class BeginersWorld implements Listener {
 
@@ -33,8 +36,15 @@ public class BeginersWorld implements Listener {
         }
         Player player = e.getPlayer();
         World world = player.getWorld();
-        // List<Player>
-
+        List<Player> players = world.getPlayers();
+        if(players.size() == 1) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    player.sendMessage("モンスターが出たよ");
+                }
+            }.runTaskLater(this.plugin, 20);
+        }
     }
 
     @EventHandler
