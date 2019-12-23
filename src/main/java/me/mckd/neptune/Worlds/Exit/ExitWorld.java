@@ -146,6 +146,14 @@ public class ExitWorld implements Listener {
                         meta.setBasePotionData(potionData);
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
+
+                        // ザ・ワールド
+                        ItemStack compass = new  ItemStack(Material.COMPASS);
+                        ItemMeta compassMeta = compass.getItemMeta();
+                        compassMeta.setDisplayName("ザ・ワールド");
+                        compass.setItemMeta(compassMeta);
+                        player.getInventory().addItem(compass);
+
                     }
                 }.runTaskLater(this.plugin,200);
             }else {
@@ -254,6 +262,21 @@ public class ExitWorld implements Listener {
                 new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
                 player.sendMessage("ENDER CLICKED");
                 e.setCancelled(true);
+            }
+        }
+        // 空中を右クリックした場合
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            // かつコンパスを持っていた場合
+            if (e.getMaterial() == Material.COMPASS) {
+                List<Player> players = player.getWorld().getPlayers();
+                for (Player p: players) {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            p.sendTitle("ザ・ワールド！", "", 20, 20, 20);
+                        }
+                    }.runTaskLater(this.plugin, 200);
+                }
             }
         }
     }
