@@ -178,6 +178,12 @@ public class ExitWorld implements Listener {
                         meta.setBasePotionData(potionData);
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
+
+                        ItemStack compass = new ItemStack(Material.COMPASS);
+                        ItemMeta compassMeta = compass.getItemMeta();
+                        compassMeta.setDisplayName("ザ・ワールド");
+                        compass.setItemMeta(compassMeta);
+                        player.getInventory().addItem(compass);
                     }
                 }.runTaskLater(this.plugin,200);
             }
@@ -253,6 +259,15 @@ public class ExitWorld implements Listener {
                 new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
                 player.sendMessage("ENDER CLICKED");
                 e.setCancelled(true);
+            }
+        }
+        if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+
+            if(e.getMaterial()  == Material.COMPASS) {
+                List<Player>players = player.getWorld().getPlayers();
+                for (Player p: players) {
+                    p.sendTitle("ザ・ワールド！","",20,180,20);
+                }
             }
         }
     }
