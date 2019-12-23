@@ -209,6 +209,10 @@ public class ExitWorld implements Listener {
                 }
             }
         }
+        World world = e.getEntity().getWorld();
+        if( this.isAllCatched(world) ){
+            this.oniWon(world);
+        }
     }
 
     public void setEquipment(Player player) {
@@ -252,4 +256,29 @@ public class ExitWorld implements Listener {
             }
         }
     }
+
+    private boolean isAllCatched(World world){
+
+        List<Player> players = world.getPlayers();
+        for (Player player: players) {
+
+            Location loc = player.getLocation();
+            if(player.getDisplayName().equals("B") ) {
+                if (loc.getY() < 20) {
+                    return false;
+                }
+            }
+        }
+        return  true;
+    }
+
+    private void oniWon(World world){
+
+        List<Player> players = world.getPlayers();
+
+        for(Player p: players) {
+            p.sendTitle("鬼の勝ち！","",20,20,20);
+        }
+    }
 }
+
