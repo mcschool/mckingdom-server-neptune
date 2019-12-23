@@ -278,6 +278,14 @@ public class ExitWorld implements Listener {
 
         for(Player p: players) {
             p.sendTitle("鬼の勝ち！","",20,20,20);
+
+            new BukkitRunnable() {
+                @Override
+                public void  run() {
+                    p.performCommand("mvtp lobby");
+
+                }
+            }.runTaskLater(this.plugin,60);
         }
     }
 }
