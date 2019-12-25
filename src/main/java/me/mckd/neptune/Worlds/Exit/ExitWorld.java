@@ -3,6 +3,7 @@ package me.mckd.neptune.Worlds.Exit;
 import me.mckd.neptune.Neptune;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -29,6 +30,7 @@ public class ExitWorld implements Listener {
     String worldName = "exit";
     int count = 5;
     boolean theWorld = false;
+    boolean started = false;
 
     public ExitWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -50,11 +52,10 @@ public class ExitWorld implements Listener {
         int playerCount = players.size();
         String playerNum = String.valueOf(playerCount);
         for (Player p:players) {
-            p.sendMessage("今"+playerNum + "人になった？");
+            p.sendMessage("今"+playerNum + "人になりました。");
         }
-        // n人以上集まったらゲームを開始する
-        if (playerCount >= 2) {
-            this.start();
+        if (playerCount == 1) {
+            this.started = false;
         }
     }
 
@@ -98,6 +99,7 @@ public class ExitWorld implements Listener {
 
     // 11.25
     private void start() {
+        this.started = true;
         World world = Bukkit.getWorld("exit");
         List<Player> players =world.getPlayers();
 
@@ -147,6 +149,12 @@ public class ExitWorld implements Listener {
                         meta.setBasePotionData(potionData);
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
+
+                        ItemStack watch = new ItemStack(Material.WATCH);
+                        ItemMeta watchMeta = watch.getItemMeta();
+                        watchMeta.setDisplayName("ザ・ワールド");
+                        watch.setItemMeta(watchMeta);
+                        player.getInventory().addItem(watch);
                     }
                 }.runTaskLater(this.plugin,200);
             }else {
@@ -180,11 +188,6 @@ public class ExitWorld implements Listener {
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
 
-                        ItemStack watch = new ItemStack(Material.WATCH);
-                        ItemMeta watchMeta = watch.getItemMeta();
-                        watchMeta.setDisplayName("ザ・ワールド");
-                        watch.setItemMeta(watchMeta);
-                        player.getInventory().addItem(watch);
                     }
                 }.runTaskLater(this.plugin,200);
             }
@@ -261,6 +264,27 @@ public class ExitWorld implements Listener {
                 player.sendMessage("ENDER CLICKED");
                 e.setCancelled(true);
             }
+            // 看板だった場合
+            if (block.getType() == Material.SIGN_POST) {
+                Sign sign;
+                sign = (Sign) block.getState();
+                String line = sign.getLine(1);
+                // 看板にstage1と書いてあったら
+                if (line.equals("start")) {
+                    if( this.started ) {
+                        player.sendMessage("現在プレイ中のゲームが終わるまでお待ち下さい。");
+                    }else{
+                        List<Player> players = player.getWorld().getPlayers();
+                        int playerCount = players.size();
+                        if (playerCount == 1) {
+                            player.sendMessage("2人以上になるまでお待ち下さい。");
+                        }
+                        if (playerCount >= 2) {
+                            start();
+                        }
+                    }
+                }
+            }
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 
@@ -276,7 +300,7 @@ public class ExitWorld implements Listener {
                     public void run() {
                         theWorld = false;
                     }
-                }.runTaskLater(this.plugin,10);
+                }.runTaskLater(this.plugin,100);
             }
         }
     }
@@ -311,6 +335,7 @@ public class ExitWorld implements Listener {
                 }
             }.runTaskLater(this.plugin,60);
         }
+        this.started = false;
     }
 }
 
