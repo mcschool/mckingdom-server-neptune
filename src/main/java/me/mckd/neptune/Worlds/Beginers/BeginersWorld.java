@@ -91,9 +91,11 @@ public class BeginersWorld implements Listener {
         }
         Player player = e.getEntity().getKiller();
         if (e.getEntityType() == EntityType.ZOMBIE) {
+            // ゾンビを倒したらプレーヤーにメッセージ
             player.sendMessage("ゾンビを倒した！");
         }
         if (e.getEntityType() == EntityType.SKELETON) {
+            // スケルトンを倒したらプレーヤーにメッセージ
             player.sendMessage("スケルトンを倒した！");
         }
     }
