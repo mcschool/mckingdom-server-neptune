@@ -52,11 +52,11 @@ public class ExitWorld implements Listener {
         int playerCount = players.size();
         String playerNum = String.valueOf(playerCount);
         for (Player p:players) {
-            p.sendMessage("今"+playerNum + "人になった？");
+            p.sendMessage("今"+playerNum + "人になりました");
         }
         // n人以上集まったらゲームを開始する
-        if (playerCount >= 2) {
-            this.start();
+        if (playerCount == 1) {
+            this.started = false;
         }
     }
 
@@ -299,7 +299,7 @@ public class ExitWorld implements Listener {
                     public void run() {
                         theWorld = false;
                     }
-                }.runTaskLater(this.plugin,10);
+                }.runTaskLater(this.plugin,100);
             }
         }
     }
