@@ -7,11 +7,13 @@ import org.bukkit.Warning;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -77,6 +79,18 @@ public class BeginersWorld implements Listener {
                 ItemStack item = new ItemStack(Material.WOOD_SWORD);
                 p.getInventory().addItem(item);
             }
+        }
+    }
+
+    @EventHandler
+    public  void onEntitydeath(EntityDeathEvent e){
+        World world = e.getEntity().getWorld();
+        if(world.getName().equals("beginers")) {
+            return;
+        }
+        Player player = e.getEntity().getKiller();
+        if(e.getEntityType() == EntityType.ZOMBIE){
+            player.sendMessage("ゾンビを倒した");
         }
     }
 }
