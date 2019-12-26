@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -300,6 +301,19 @@ public class ExitWorld implements Listener {
                         theWorld = false;
                     }
                 }.runTaskLater(this.plugin,100);
+            }
+        }
+    }
+
+    @EventHandler
+    public  void onPlayerMove(PlayerMoveEvent e) {
+        Player player = e.getPlayer();
+        if(!e.getPlayer().getWorld().getName().equals(this.worldName) ) {
+            return;
+        }
+        if(theWorld) {
+            if(player.getDisplayName().equals("B") ) {
+                e.setCancelled(true);
             }
         }
     }
