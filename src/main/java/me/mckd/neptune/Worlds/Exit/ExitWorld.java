@@ -3,6 +3,7 @@ package me.mckd.neptune.Worlds.Exit;
 import me.mckd.neptune.Neptune;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -29,6 +30,7 @@ public class ExitWorld implements Listener {
     String worldName = "exit";
     int count = 5;
     boolean theWorld = false;
+    boolean started = false;
 
     public ExitWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -98,6 +100,7 @@ public class ExitWorld implements Listener {
 
     // 11.25
     private void start() {
+        this.started = true;
         World world = Bukkit.getWorld("exit");
         List<Player> players =world.getPlayers();
 
@@ -147,6 +150,12 @@ public class ExitWorld implements Listener {
                         meta.setBasePotionData(potionData);
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
+
+                        ItemStack watch = new ItemStack(Material.WATCH);
+                        ItemMeta watchMeta = watch.getItemMeta();
+                        watchMeta.setDisplayName("ザ・ワールド");
+                        watch.setItemMeta(watchMeta);
+                        player.getInventory().addItem(watch);
                     }
                 }.runTaskLater(this.plugin,200);
             }else {
@@ -180,11 +189,6 @@ public class ExitWorld implements Listener {
                         potion.setItemMeta(meta);
                         player.getInventory().addItem(potion);
 
-                        ItemStack watch = new ItemStack(Material.WATCH);
-                        ItemMeta watchMeta = watch.getItemMeta();
-                        watchMeta.setDisplayName("ザ・ワールド");
-                        watch.setItemMeta(watchMeta);
-                        player.getInventory().addItem(watch);
                     }
                 }.runTaskLater(this.plugin,200);
             }
@@ -260,6 +264,25 @@ public class ExitWorld implements Listener {
                 new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
                 player.sendMessage("ENDER CLICKED");
                 e.setCancelled(true);
+            }
+            if(block.getType() == Material.SIGN_POST) {
+                Sign sign;
+                sign = (Sign) block.getState();
+                String line = sign.getLine(1);
+                if(line.equals("start")) {
+                    if(this.started) {
+                        player.sendMessage("現在プレイ中のゲームが終わるまでお待ち下。");
+                    }else{
+                        List<Player> players = player.getWorld().getPlayers();
+                        int playerCount =players.size();
+                        if(playerCount == 1) {
+                            player.sendMessage("２人以上になるまでお待ち下さい。");
+                        }
+                        if (playerCount >=2) {
+                            start();
+                        }
+                    }
+                }
             }
         }
         if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
