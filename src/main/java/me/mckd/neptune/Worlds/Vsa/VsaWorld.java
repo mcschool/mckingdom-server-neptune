@@ -22,7 +22,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-import static sun.jvm.hotspot.runtime.PerfMemory.start;
 
 public class VsaWorld implements Listener {
 
