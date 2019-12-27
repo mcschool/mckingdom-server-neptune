@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class VsaWorld implements Listener {
     Neptune plugin;
     String worldName = "vsa";
     Location lobbyLocation = new Location(Bukkit.getWorld(this.worldName), -327, 98, -53);
+    String currentCourse = "";
 
     public VsaWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -84,11 +86,14 @@ public class VsaWorld implements Listener {
         Block block = e.getClickedBlock();
         Sign sign = (Sign) block.getState();
         String line = sign.getLine(1);
-        this.move(line);
+        this.countDown(line);
     }
-    public void move(String courseName){
+
+    // 看板クリックしたらゲームスタート
+    public void countDown(String courseName){
         Location location = null;
         World world = Bukkit.getWorld("vsa");
+        this.currentCourse = courseName;
         if (courseName.equals("1")){
             location = new  Location(world,0,0,0);
         }
@@ -105,6 +110,30 @@ public class VsaWorld implements Listener {
             for (Player p : players) {
                 p.teleport(location);
             }
+        }
+        new BukkitRunnable() {
+            int c = 10;
+            @Override
+            public void run() {
+                List<Player> players = world.getPlayers();
+                for (Player  p: players) {
+                    p.sendTitle(String.valueOf(c), "", 0, 20, 0);
+                }
+                c--;
+                if (c <= 0) {
+                    this.cancel();
+                    start();
+                }
+            }
+        }.runTaskTimer(this.plugin, 0, 20);
+    }
+
+    public void start() {
+        World world = Bukkit.getWorld("vsa");
+        if (this.currentCourse.equals("1")) {
+            // これを全部やる
+            Location location = new Location(world, 0, 0, 0);
+            location.getBlock().setType(Material.AIR);
         }
     }
 
