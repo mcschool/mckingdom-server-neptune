@@ -83,14 +83,17 @@ public class BeginersWorld implements Listener {
     }
 
     @EventHandler
-    public  void onEntitydeath(EntityDeathEvent e){
+    public  void onEntitydeath(EntityDeathEvent e) {
         World world = e.getEntity().getWorld();
-        if(world.getName().equals("beginers")) {
+        if (world.getName().equals("beginers")) {
             return;
         }
         Player player = e.getEntity().getKiller();
-        if(e.getEntityType() == EntityType.ZOMBIE){
+        if (e.getEntityType() == EntityType.ZOMBIE) {
             player.sendMessage("ゾンビを倒した");
+        }
+        if (e.getEntityType() == EntityType.SKELETON) {
+            player.sendMessage("スケルトンを倒した");
         }
     }
 }
