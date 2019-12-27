@@ -95,6 +95,18 @@ public class VsaWorld implements Listener {
         this.currentCourse = courseName;
         if(courseName.equals("1")){
             location = new Location(world,-310,90,-82);
+            new Location(world,-306,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-307,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-308,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-309,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-310,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-311,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-312,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-313,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-314,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-315,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-316,90,-86).getBlock().setType(Material.FENCE);
+            new Location(world,-317,90,-86).getBlock().setType(Material.FENCE);
         }
         if(courseName.equals("2")){
             location = new Location(world,0,0,0);
