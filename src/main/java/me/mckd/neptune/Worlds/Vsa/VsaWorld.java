@@ -131,8 +131,19 @@ public class VsaWorld implements Listener {
     public  void start() {
         World world = Bukkit.getWorld("vsa");
         if(this.currentCourse.equals("1")) {
-            Location location = new Location(world,0,0,0);
-            location.getBlock().setType(Material.AIR);
+            new Location(world,-305,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-306,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-307,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-308,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-309,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-310,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-311,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-312,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-313,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-314,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-315,90,-85).getBlock().setType(Material.AIR);
+            new Location(world,-316,90,-85).getBlock().setType(Material.AIR);
+
         }
     }
 
