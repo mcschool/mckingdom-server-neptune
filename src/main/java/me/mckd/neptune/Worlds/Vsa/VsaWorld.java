@@ -133,6 +133,7 @@ public class VsaWorld implements Listener {
             new Location(world,-390,106,-210).getBlock().setType(Material.FENCE);
             new Location(world,-389,106,-210).getBlock().setType(Material.FENCE);
             new Location(world,-388,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-388,106,-210).getBlock().setType(Material.FENCE);
 
 
 
@@ -195,6 +196,7 @@ public class VsaWorld implements Listener {
             new Location(world,-397,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-396,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-395,106,-210).getBlock().setType(Material.AIR);
+            new Location(world,-394,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-393,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-392,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-391,106,-210).getBlock().setType(Material.AIR);
@@ -202,7 +204,6 @@ public class VsaWorld implements Listener {
             new Location(world,-389,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-388,106,-210).getBlock().setType(Material.AIR);
             new Location(world,-387,106,-210).getBlock().setType(Material.AIR);
-            new Location(world,-386,106,-210).getBlock().setType(Material.AIR);
 
 
         }
