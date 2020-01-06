@@ -114,14 +114,11 @@ public class VsaWorld implements Listener {
             new Location(world,-317,90,-86).getBlock().setType(Material.FENCE);
         }
         if(courseName.equals("2")){
-            location = new Location(world,0,0,0);
+            location = new Location(world,-254,86,-143);
 
 
         }
-        if(courseName.equals("2")){
-            location = new Location(world,0,0,0);
 
-        }
         if(location == null) {
             List<Player>players = world.getPlayers();
             for (Player p: players) {
