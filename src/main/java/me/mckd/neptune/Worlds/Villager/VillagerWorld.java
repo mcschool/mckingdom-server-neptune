@@ -1,10 +1,7 @@
 package me.mckd.neptune.Worlds.Villager;
 
 import me.mckd.neptune.Neptune;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,6 +18,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.List;
 
@@ -59,6 +57,12 @@ public class VillagerWorld implements Listener {
             // this.start();
             new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 100);
             new SpawnIronScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 20);
+            for (int i=0; i<world.getPlayers().size(); i++) {
+                if (i % 4 == 0) {
+                    this.setHelmetBlue(player);
+                }
+                // それぞれの色を追加
+            }
         }
     }
 
@@ -178,6 +182,21 @@ public class VillagerWorld implements Listener {
     public void gameFinish(){
         this.gameStatus = "Preperation";
     }
+
+
+    public void setHelmetBlue(Player player) {
+        player.sendMessage("そうびするよ");
+        // ヘルメット準備
+        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+        // ヘルメットのメタ情報準備
+        LeatherArmorMeta meta = (LeatherArmorMeta) helmet.getItemMeta();
+        // カラー設定
+        meta.setColor(Color.BLUE);
+        // ヘルメットにメタ情報セット
+        helmet.setItemMeta(meta);
+        player.getEquipment().setHelmet(helmet);
+    }
+
 }
 
 
