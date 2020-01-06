@@ -42,7 +42,7 @@ public class BeginersWorld implements Listener {
                 @Override
                 public void run() {
                     player.sendMessage("モンスターが出たよ");
-                    Location location = new Location(world,1040,3,509);
+                    Location location = new Location(world,1040,4,509);
                     world.spawn(location, Zombie.class);
 
 
