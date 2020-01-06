@@ -29,6 +29,9 @@ public class VsaWorld implements Listener {
     String worldName = "vsa";
     Location lobbyLocation = new Location(Bukkit.getWorld(this.worldName), -327, 98, -53);
     String currentCourse = "";
+    String status = "wait";
+    int playerNum = 0;
+    int clearPlayerNum = 0;
 
     public VsaWorld(Neptune plugin) {
         this.plugin = plugin;
@@ -87,6 +90,8 @@ public class VsaWorld implements Listener {
         Block block = e.getClickedBlock();
         Sign sign = (Sign) block.getState();
         String line = sign.getLine(1);
+        this.playerNum = e.getClickedBlock().getWorld().getPlayers().size();
+        this.status = "playing";
         this.countDown(line);
     }
     public void countDown(String courseName){
@@ -107,6 +112,11 @@ public class VsaWorld implements Listener {
             new Location(world,-315,90,-86).getBlock().setType(Material.FENCE);
             new Location(world,-316,90,-86).getBlock().setType(Material.FENCE);
             new Location(world,-317,90,-86).getBlock().setType(Material.FENCE);
+        }
+        if(courseName.equals("2")){
+            location = new Location(world,0,0,0);
+
+
         }
         if(courseName.equals("2")){
             location = new Location(world,0,0,0);
@@ -157,6 +167,10 @@ public class VsaWorld implements Listener {
             new Location(world,-317,90,-86).getBlock().setType(Material.AIR);
 
         }
+        if(this.currentCourse.equals("2")) {
+
+
+        }
     }
 
     public void done(Player player) {
@@ -164,6 +178,22 @@ public class VsaWorld implements Listener {
         // player.teleport(this.lobbyLocation);
         // タイトルを表示
         player.sendTitle("終了！", "一位は" + player.getDisplayName() + "さん", 20, 20,20);
+        World world = player.getWorld();
+        Location lobbyLocation = this.lobbyLocation;
+
+
+        if (this.status.equals("playing")) {
+            new BukkitRunnable() {
+                @Override
+                public  void run() {
+                    List<Player> players = world.getPlayers();
+                    for (Player p: players) {
+                        p.teleport(lobbyLocation);
+                    }
+                }
+            }.runTaskLater(this.plugin,100);
+        }
+        this.status = "cleared";
     }
 
     @EventHandler
