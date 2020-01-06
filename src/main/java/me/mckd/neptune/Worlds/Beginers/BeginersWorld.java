@@ -1,14 +1,12 @@
 package me.mckd.neptune.Worlds.Beginers;
 
 import me.mckd.neptune.Neptune;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Warning;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -44,6 +42,10 @@ public class BeginersWorld implements Listener {
                 @Override
                 public void run() {
                     player.sendMessage("モンスターが出たよ");
+                    Location location = new Location(world,1040,3,509);
+                    world.spawn(location, Zombie.class);
+
+
                 }
             }.runTaskLater(this.plugin, 20);
         }
