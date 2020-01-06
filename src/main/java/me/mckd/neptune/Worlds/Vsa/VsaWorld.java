@@ -115,6 +115,25 @@ public class VsaWorld implements Listener {
         }
         if(courseName.equals("2")){
             location = new Location(world,-396,106,-205);
+            new Location(world,-405,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-404,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-403,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-402,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-401,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-400,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-399,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-398,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-397,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-396,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-395,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-394,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-393,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-392,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-391,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-390,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-389,106,-210).getBlock().setType(Material.FENCE);
+            new Location(world,-388,106,-210).getBlock().setType(Material.FENCE);
+
 
 
         }
