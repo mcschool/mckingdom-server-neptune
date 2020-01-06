@@ -114,7 +114,7 @@ public class VsaWorld implements Listener {
             new Location(world,-317,90,-86).getBlock().setType(Material.FENCE);
         }
         if(courseName.equals("2")){
-            location = new Location(world,-254,86,-143);
+            location = new Location(world,-396,106,-205);
 
 
         }
