@@ -369,11 +369,11 @@ public class ExitWorld implements Listener {
 
     private boolean inField(Player player){
         Location loc = player.getLocation();
-        int minX = -1054;
+        int minX = -1055;
         int maxX = -994;
         int minY = 4;
         int maxY = 32;
-        int minZ = -1139;
+        int minZ = -1140;
         int maxZ = -1083;
         if(minX <= loc.getX() && loc.getX() <=maxX){
             if(minY <= loc.getY() && loc.getY() <=maxY){
@@ -387,11 +387,11 @@ public class ExitWorld implements Listener {
 
     private boolean inGoal(Player player){
         Location loc = player.getLocation();
-        int minX = -1028;
+        int minX = -1029;
         int maxX = -1024;
         int minY = 4;
         int maxY = 8;
-        int minZ = -1151;
+        int minZ = -1152;
         int maxZ = -1140;
         if(minX <= loc.getX() && loc.getX() <=maxX){
             if(minY <= loc.getY() && loc.getY() <=maxY){
@@ -405,11 +405,11 @@ public class ExitWorld implements Listener {
 
     private boolean inJail(Player player){
         Location loc = player.getLocation();
-        int minX = -999;
+        int minX = -1000;
         int maxX = -994;
         int minY = 29;
         int maxY = 32;
-        int minZ = -1083;
+        int minZ = -1084;
         int maxZ = -1077;
         if(minX <= loc.getX() && loc.getX() <=maxX){
             if(minY <= loc.getY() && loc.getY() <=maxY){
