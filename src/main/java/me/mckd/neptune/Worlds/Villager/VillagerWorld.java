@@ -59,6 +59,7 @@ public class VillagerWorld implements Listener {
             // this.start();
             new SpawnDiamondScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 100);
             new SpawnIronScheduler(this.plugin, player.getWorld()).runTaskTimer(this.plugin, 0, 20);
+            new SpawnGoldScheduler(this.plugin,player.getWorld()).runTaskTimer(this.plugin, 0,100);
         }
     }
 
