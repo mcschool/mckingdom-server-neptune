@@ -302,6 +302,11 @@ public class ExitWorld implements Listener {
                     }
                 }.runTaskLater(this.plugin,100);
             }
+
+            if(e.getMaterial()  == Material.DIAMOND_SWORD) {
+                whereAreYou(player);
+            }
+
         }
     }
 
@@ -349,5 +354,79 @@ public class ExitWorld implements Listener {
             }.runTaskLater(this.plugin,60);
         }
     }
+
+    private void whereAreYou(Player player){
+        if( inField(player) ){
+            player.sendMessage("Fieldにいます。");
+        }else{
+            player.sendMessage("Fieldにいません。");
+        }
+        if( inGoal(player) ){
+            player.sendMessage("Goalにいます。");
+        }else{
+            player.sendMessage("Goalにいません。");
+        }
+        if( inJail(player) ){
+            player.sendMessage("Jailにいます。");
+        }else{
+            player.sendMessage("Jailにいません。");
+        }
+    }
+
+    private boolean inField(Player player){
+        Location loc = player.getLocation();
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+        int minZ = 0;
+        int maxZ = 0;
+        if( minX <= loc.getX() && loc.getX()<=maxX ){
+            if( minY <= loc.getY() && loc.getY()<=maxY ){
+                if( minZ <= loc.getZ() && loc.getZ()<=maxZ ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    private boolean inGoal(Player player){
+        Location loc = player.getLocation();
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+        int minZ = 0;
+        int maxZ = 0;
+        if( minX <= loc.getX() && loc.getX()<=maxX ){
+            if( minY <= loc.getY() && loc.getY()<=maxY ){
+                if( minZ <= loc.getZ() && loc.getZ()<=maxZ ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean inJail(Player player){
+        Location loc = player.getLocation();
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+        int minZ = 0;
+        int maxZ = 0;
+        if( minX <= loc.getX() && loc.getX()<=maxX ){
+            if( minY <= loc.getY() && loc.getY()<=maxY ){
+                if( minZ <= loc.getZ() && loc.getZ()<=maxZ ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
 
