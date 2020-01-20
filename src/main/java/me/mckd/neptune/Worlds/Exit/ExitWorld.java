@@ -52,8 +52,8 @@ public class ExitWorld implements Listener {
         List<Player> players = player.getWorld().getPlayers();
         int playerCount = players.size();
         String playerNum = String.valueOf(playerCount);
-        for (Player p:players) {
-            p.sendMessage("今"+playerNum + "人になりました");
+        for (Player p : players) {
+            p.sendMessage("今" + playerNum + "人になりました");
         }
         // n人以上集まったらゲームを開始する
         if (playerCount == 1) {
@@ -62,9 +62,9 @@ public class ExitWorld implements Listener {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent e)  {
+    public void onBlockBreak(BlockBreakEvent e) {
         Player player = e.getPlayer();
-        if(!player.getWorld().getName().equals("exit")) {
+        if (!player.getWorld().getName().equals("exit")) {
             return;
         }
         if (player.getGameMode() == GameMode.CREATIVE) {
@@ -80,7 +80,7 @@ public class ExitWorld implements Listener {
             this.count--;
             List<Player> players = e.getBlock().getWorld().getPlayers();
             // 全プレーヤーにメッセージ
-            for (Player p: players) {
+            for (Player p : players) {
                 if (this.count == 0) {
                     p.sendTitle("全部壊した！", "", 20, 20, 20);
                 } else {
@@ -98,25 +98,24 @@ public class ExitWorld implements Listener {
     }
 
 
-
     // 11.25
     private void start() {
         this.started = true;
         World world = Bukkit.getWorld("exit");
-        List<Player> players =world.getPlayers();
+        List<Player> players = world.getPlayers();
 
-        world.getBlockAt(new Location(world,-1025,4,-1119)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1004,4,-1135)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1001,4,-1087)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1031,5,-1091)).setType(Material.LOG_2);
-        world.getBlockAt(new Location(world,-1053,4,-1087)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1025, 4, -1119)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1004, 4, -1135)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1001, 4, -1087)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1031, 5, -1091)).setType(Material.LOG_2);
+        world.getBlockAt(new Location(world, -1053, 4, -1087)).setType(Material.LOG_2);
 
-        world.getBlockAt(new Location(world,-1026,4,-1141)).setType(Material.IRON_FENCE);
-        world.getBlockAt(new Location(world,-1026,5,-1141)).setType(Material.IRON_FENCE);
+        world.getBlockAt(new Location(world, -1026, 4, -1141)).setType(Material.IRON_FENCE);
+        world.getBlockAt(new Location(world, -1026, 5, -1141)).setType(Material.IRON_FENCE);
 
         this.count = 5;
 
-        for(int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == 0) {
                 player.setDisplayName("A");
@@ -127,18 +126,17 @@ public class ExitWorld implements Listener {
                 player.sendTitle(
                         "あなたは鬼です",
                         "全員を捕まえてください",
-                20,
-                40,
-                20
+                        20,
+                        40,
+                        20
 
                 );
-
 
 
                 this.setStatus(player);
                 new BukkitRunnable() {
                     @Override
-                    public  void  run() {
+                    public void run() {
                         player.sendMessage("potion");
                         ItemStack potion = new ItemStack(Material.POTION);
                         PotionType potionType = PotionType.SPEED;
@@ -158,11 +156,11 @@ public class ExitWorld implements Listener {
                         watch.setItemMeta(watchMeta);
                         player.getInventory().addItem(watch);
                     }
-                }.runTaskLater(this.plugin,200);
-            }else {
+                }.runTaskLater(this.plugin, 200);
+            } else {
                 player.setDisplayName("B");
                 player.setCustomName("B");
-                Location location = new Location(world,-1024,5,-1089);
+                Location location = new Location(world, -1024, 5, -1089);
                 player.teleport(location);
                 player.sendTitle(
                         "あなたは逃げる人です",
@@ -176,7 +174,7 @@ public class ExitWorld implements Listener {
 
                 new BukkitRunnable() {
                     @Override
-                    public void  run() {
+                    public void run() {
                         ItemStack potion = new ItemStack(Material.POTION);
                         PotionType potionType = PotionType.SPEED;
                         PotionData potionData = new PotionData(
@@ -191,12 +189,12 @@ public class ExitWorld implements Listener {
                         player.getInventory().addItem(potion);
 
                     }
-                }.runTaskLater(this.plugin,200);
+                }.runTaskLater(this.plugin, 200);
             }
         }
 
         List<Entity> entities = world.getEntities();
-        for (Entity entity: entities) {
+        for (Entity entity : entities) {
             if (entity instanceof Item) {
                 entity.remove();
             }
@@ -206,7 +204,7 @@ public class ExitWorld implements Listener {
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
 
-        if(!e.getEntity().getWorld().getName().equals("exit")) {
+        if (!e.getEntity().getWorld().getName().equals("exit")) {
             return;
         }
 
@@ -222,7 +220,7 @@ public class ExitWorld implements Listener {
             }
         }
         World world = e.getEntity().getWorld();
-        if( this.isAllCatched(world) ){
+        if (this.isAllCatched(world)) {
             this.oniWon(world);
         }
     }
@@ -250,104 +248,177 @@ public class ExitWorld implements Listener {
         return false;
 
 
-
-
     }
+
     @EventHandler
-    public  void onPlayerInteract(PlayerInteractEvent e) {
+    public void onPlayerInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if(!player.getWorld().getName().equals("exit")) {
+        if (!player.getWorld().getName().equals("exit")) {
             return;
         }
-        if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             Block block = e.getClickedBlock();
             if (block.getType() == Material.ENDER_CHEST) {
                 new ExitFinishScheduler(player.getWorld()).runTaskTimer(this.plugin, 0, 20);
                 player.sendMessage("ENDER CLICKED");
                 e.setCancelled(true);
             }
-            if(block.getType() == Material.SIGN_POST) {
+            if (block.getType() == Material.SIGN_POST) {
                 Sign sign;
                 sign = (Sign) block.getState();
                 String line = sign.getLine(1);
-                if(line.equals("start")) {
-                    if(this.started) {
+                if (line.equals("start")) {
+                    if (this.started) {
                         player.sendMessage("現在プレイ中のゲームが終わるまでお待ち下。");
-                    }else{
+                    } else {
                         List<Player> players = player.getWorld().getPlayers();
-                        int playerCount =players.size();
-                        if(playerCount == 1) {
+                        int playerCount = players.size();
+                        if (playerCount == 1) {
                             player.sendMessage("２人以上になるまでお待ち下さい。");
                         }
-                        if (playerCount >=2) {
+                        if (playerCount >= 2) {
                             start();
                         }
                     }
                 }
             }
         }
-        if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 
-            if(e.getMaterial()  == Material.WATCH) {
+            if (e.getMaterial() == Material.WATCH) {
                 theWorld = true;
                 player.getInventory().remove(player.getItemInHand());
-                List<Player>players = player.getWorld().getPlayers();
-                for (Player p: players) {
-                    p.sendTitle("ザ・ワールド！","",20,180,20);
+                List<Player> players = player.getWorld().getPlayers();
+                for (Player p : players) {
+                    p.sendTitle("ザ・ワールド！", "", 20, 180, 20);
                 }
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         theWorld = false;
                     }
-                }.runTaskLater(this.plugin,100);
+                }.runTaskLater(this.plugin, 100);
+            }
+            if (e.getMaterial() == Material.DIAMOND_SWORD) {
+                whereAreYou(player);
             }
         }
     }
 
     @EventHandler
-    public  void onPlayerMove(PlayerMoveEvent e) {
+    public void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if(!e.getPlayer().getWorld().getName().equals(this.worldName) ) {
+        if (!e.getPlayer().getWorld().getName().equals(this.worldName)) {
             return;
         }
-        if(theWorld) {
-            if(player.getDisplayName().equals("B") ) {
+        if (theWorld) {
+            if (player.getDisplayName().equals("B")) {
                 e.setCancelled(true);
             }
         }
     }
 
-    private boolean isAllCatched(World world){
+    private boolean isAllCatched(World world) {
 
         List<Player> players = world.getPlayers();
-        for (Player player: players) {
+        for (Player player : players) {
 
             Location loc = player.getLocation();
-            if(player.getDisplayName().equals("B") ) {
+            if (player.getDisplayName().equals("B")) {
                 if (loc.getY() < 20) {
                     return false;
                 }
             }
         }
-        return  true;
+        return true;
     }
 
-    private void oniWon(World world){
+    private void oniWon(World world) {
 
         List<Player> players = world.getPlayers();
 
-        for(Player p: players) {
-            p.sendTitle("鬼の勝ち！","",20,20,20);
+        for (Player p : players) {
+            p.sendTitle("鬼の勝ち！", "", 20, 20, 20);
 
             new BukkitRunnable() {
                 @Override
-                public void  run() {
+                public void run() {
                     p.performCommand("mvtp lobby");
 
                 }
-            }.runTaskLater(this.plugin,60);
+            }.runTaskLater(this.plugin, 60);
         }
+    }
+    private  void whereAreYou(Player player){
+        if( inField(player) ){
+            player.sendMessage("Fieldにいます。");
+        }else{
+            player.sendMessage("Fieldにいません。");
+        }
+        if(inGoal(player) ){
+            player.sendMessage("Goalにいます。");
+        }else{
+            player.sendMessage("Goalにいません");
+        }
+        if(inJail(player) ){
+            player.sendMessage("Jailにいます。");
+        }else{
+            player.sendMessage("Jailにいません。");
+        }
+    }
+
+    private boolean inField(Player player){
+        Location loc = player.getLocation();
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+        int minZ = 0;
+        int maxZ = 0;
+        if(minX <= loc.getX() && loc.getX() <=maxX){
+            if(minY <= loc.getY() && loc.getY() <=maxY){
+                if(minZ <= loc.getZ() && loc.getZ() <=maxZ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean inGoal(Player player){
+        Location loc = player.getLocation();
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+        int minZ = 0;
+        int maxZ = 0;
+        if(minX <= loc.getX() && loc.getX() <=maxX){
+            if(minY <= loc.getY() && loc.getY() <=maxY){
+                if(minZ <= loc.getZ() && loc.getZ() <=maxZ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean inJail(Player player){
+        Location loc = player.getLocation();
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+        int minZ = 0;
+        int maxZ = 0;
+        if(minX <= loc.getX() && loc.getX() <=maxX){
+            if(minY <= loc.getY() && loc.getY() <=maxY){
+                if(minZ <= loc.getZ() && loc.getZ() <=maxZ){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
