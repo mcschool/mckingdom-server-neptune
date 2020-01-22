@@ -216,6 +216,8 @@ public class ExitWorld implements Listener {
 
                     Location location = new Location(e.getEntity().getWorld(), -997, 29, -1080);
                     player.teleport(location);
+                }else{
+                    e.setCancelled(true);
                 }
             }
         }
@@ -324,11 +326,17 @@ public class ExitWorld implements Listener {
         for (Player player : players) {
 
             Location loc = player.getLocation();
+            if (player.getGameMode() != GameMode.SURVIVAL) {
+                continue;
+            }
             if (player.getDisplayName().equals("B")) {
-                if (loc.getY() < 20) {
-                    return false;
+                if (inField(player) || inGoal(player)) {
+                    if (!inJail(player)) {
+                        return false;
+                    }
                 }
             }
+
         }
         return true;
     }
