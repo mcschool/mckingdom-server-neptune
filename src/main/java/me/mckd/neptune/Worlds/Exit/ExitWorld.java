@@ -213,9 +213,10 @@ public class ExitWorld implements Listener {
                 Player damager = (Player) e.getDamager();
                 Player player = (Player) e.getEntity();
                 if (isOni(damager)) {
-
-                    Location location = new Location(e.getEntity().getWorld(), -997, 29, -1080);
-                    player.teleport(location);
+                    if (inBattleArea(player)) {
+                        Location location = new Location(e.getEntity().getWorld(), -997, 29, -1080);
+                        player.teleport(location);
+                    }
                 }else{
                     e.setCancelled(true);
                 }
@@ -329,10 +330,8 @@ public class ExitWorld implements Listener {
                 continue;
             }
             if(player.getDisplayName().equals("B")) {
-                if(inField(player) ||inGoal(player)) {
-                    if(!inJail(player)) {
-                        return false;
-                    }
+                if( inBattleArea(player)){
+                    return false;
                 }
             }
         }
@@ -371,6 +370,16 @@ public class ExitWorld implements Listener {
         }else{
             player.sendMessage("Jailにいません。");
         }
+    }
+
+    private boolean inBattleArea(Player player){
+
+        if(inField(player) || inGoal(player)) {
+            if (!inJail(player)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean inField(Player player){
