@@ -377,8 +377,11 @@ public class ExitWorld implements Listener {
 
     private boolean inBattleArea(Player player){
 
+        player.sendMessage("test1");
         if(inField(player) || inGoal(player)){
+            player.sendMessage("test2");
             if(!inJail(player)) {
+                player.sendMessage("test3");
                 return true;
             }
         }
