@@ -224,8 +224,10 @@ public class ExitWorld implements Listener {
             }
         }
         World world = e.getEntity().getWorld();
-        if (this.isAllCatched(world)) {
-            this.oniWon(world);
+        if(this.started) {
+            if (this.isAllCatched(world)) {
+                this.oniWon(world);
+            }
         }
     }
 
@@ -331,10 +333,9 @@ public class ExitWorld implements Listener {
                 continue;
             }
             if(player.getDisplayName().equals("B")) {
-                if(inField(player) ||inGoal(player)) {
-                    if(!inJail(player)) {
-                        return false;
-                    }
+                if(inBattleArea(player)) {
+                    return false;
+
                 }
             }
         }
@@ -376,12 +377,8 @@ public class ExitWorld implements Listener {
     }
 
     private boolean inBattleArea(Player player){
-
-        player.sendMessage("test1");
         if(inField(player) || inGoal(player)){
-            player.sendMessage("test2");
             if(!inJail(player)) {
-                player.sendMessage("test3");
                 return true;
             }
         }
