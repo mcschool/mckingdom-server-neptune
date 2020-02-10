@@ -36,6 +36,7 @@ public class BeginersWorld implements Listener {
         }
         Player player = e.getPlayer();
         World world = player.getWorld();
+        player.getInventory().clear();
         List<Player> players = world.getPlayers();
         if(players.size() == 1) {
             new BukkitRunnable() {
