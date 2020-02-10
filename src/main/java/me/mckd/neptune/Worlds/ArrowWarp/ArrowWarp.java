@@ -118,7 +118,7 @@ public class ArrowWarp implements Listener {
                 p.teleport(location);
             }
             // ここまで
-            if (line.equals("１マスコース)) {
+            if (line.equals("１マスコース")) {
                 Location location = new Location(p.getWorld(), -1546 ,197,  691);
                 p.teleport(location);
 
