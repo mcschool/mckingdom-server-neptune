@@ -61,6 +61,15 @@ public class LobbyWorld implements Listener {
             emerald.setItemMeta(emeraldMeta);
             player.getInventory().setItem(3, emerald);
 
+            // beginers
+            ItemStack totem = new ItemStack(Material.TOTEM);
+            ItemMeta totemMETA = totem.getItemMeta();
+            totemMETA.setDisplayName("beginers 楽しんでね");
+            totem.setItemMeta(totemMETA);
+            player.getInventory().setItem(4,totem);
+
+
+
             ItemStack bed = new ItemStack(Material.BED);
             ItemMeta itemMeta = bed.getItemMeta();
             itemMeta.setDisplayName("ホームに戻る");
