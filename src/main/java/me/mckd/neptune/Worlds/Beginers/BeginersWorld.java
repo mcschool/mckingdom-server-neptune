@@ -78,7 +78,7 @@ public class BeginersWorld implements Listener {
             Sign sign  = (Sign) b.getState();
             String line = sign.getLine(1);
             if ( line.equals("sword") ){
-                ItemStack item = new ItemStack(Material.WOOD_SWORD);
+                ItemStack item = new ItemStack(Material.IRON_SWORD);
                 p.getInventory().addItem(item);
             }
         }
