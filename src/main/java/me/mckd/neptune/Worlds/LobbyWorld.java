@@ -1,6 +1,7 @@
 package me.mckd.neptune.Worlds;
 
 import me.mckd.neptune.Neptune;
+import me.mckd.neptune.Worlds.Beginers.BeginersWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -142,6 +143,11 @@ public class LobbyWorld implements Listener {
             // かつエメラルドを持っていた場合
             if (e.getMaterial() == Material.EMERALD) {
                 player.performCommand("mvtp villager");
+            }
+            //BEGINERS
+            if (e.getMaterial() == Material.TOTEM) {
+                player.performCommand("mvtp beginers");
+
             }
         }
     }
