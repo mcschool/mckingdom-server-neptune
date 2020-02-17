@@ -37,6 +37,11 @@ public class BeginersWorld implements Listener {
         Player player = e.getPlayer();
         World world = player.getWorld();
         player.getInventory().clear();
+
+        // ベッドおく
+        ItemStack bed = new ItemStack(Material.BED);
+        player.getInventory().setItem(0, bed);
+
         List<Player> players = world.getPlayers();
         if(players.size() == 1) {
             new BukkitRunnable() {
@@ -97,6 +102,19 @@ public class BeginersWorld implements Listener {
         }
         if (e.getEntityType() == EntityType.SKELETON) {
             player.sendMessage("スケルトンを倒した");
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().getName().equals("beginers")) {
+            return;
+        }
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            if (e.getMaterial() == Material.BED) {
+                player.performCommand("mvtp lobby");
+            }
         }
     }
 }
